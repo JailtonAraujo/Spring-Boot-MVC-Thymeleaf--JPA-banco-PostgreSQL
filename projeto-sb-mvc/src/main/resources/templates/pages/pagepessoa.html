@@ -1,65 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" xmlns ="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
+  <link rel="stylesheet" href="/css/pessoastyle.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+
 </head>
+
 <body>
-<header>
-	<nav>
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Logo</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
-          </ul>
-        </div>
-      </nav>
-    
-      <ul class="sidenav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-      </ul>
-</header>
-    <form action="salvarpessoa" method="post">
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo" id="logo">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <li><a href="collapsible.html">Javascript</a></li>
+          <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">Javascript</a></li>
+      <li><a href="mobile.html">Mobile</a></li>
+    </ul>
+  </header>
+
+  <div class="div-main">
+    <div class="div-submain">
+    <div class="form-group">
+      <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
+        <label>ID:</label>
+        <input name="id" th:field="*{id}" readonly="readonly">
         <label for="">Nome:</label>
-        <input type="text" name="nome">
+        <input type="text" name="nome" th:field="*{nome}" class="validate" required="required">
         <label for="">sobrenome</label>
-        <input type="text" name="sobrenome">
+        <input type="text" name="sobrenome" th:field="*{sobrenome}" class="validate" required="required">
         <label for="">idade</label>
-        <input type="number" name="idade">
+        <input type="number" name="idade" th:field="*{idade}" class="validate" required="required">
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
-    </form>
+        <a class="btn waves-effect waves-light" href="listarpessoas">Listar</a>
+      </form>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">ID:</th>
-                <th scope="col">Nome:</th>
-                <th scope="col">Sobrenome:</th>
-                <th scope="col">Idade:</th>
-            </tr>
-        </thead>
+    <div class="form-grup-search">
+      <form action="findbyname" method="post" style="margin-top: 20px;">
+        <input type="text" name="nome" placeholder="Buscar por nome">
+        <button class="btn waves-effect waves-light" type="submit">BUSCAR</button>
+      </form>
+    </div>
 
-        <tbody>
-			<tr th:each = "pessoa : ${pessoas}">
-				<td th:text = "${pessoa.id}"></td>
-				<td th:text = "${pessoa.nome}"></td>
-				<td th:text = "${pessoa.sobrenome}"></td>
-				<td th:text = "${pessoa.idade}"></td>
-			</tr>
-        </tbody>
+    <div class="tbl-persons">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th scope="col">ID:</th>
+          <th scope="col">Nome:</th>
+          <th scope="col">Sobrenome:</th>
+          <th scope="col">Idade:</th>
+          <th scope="col">Editar:</th>
+          <th scope="col">Excluir:</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="pessoa : ${pessoas}">
+          <td th:text="${pessoa.id}"></td>
+          <td th:text="${pessoa.nome}"></td>
+          <td th:text="${pessoa.sobrenome}"></td>
+          <td th:text="${pessoa.idade}"></td>
+          <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="editar">edit</i></a></td>
+          <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="excluir">delete</i></a></td>
+
+        </tr>
+      </tbody>
     </table>
-<script type="text/javascript" src="js/script.js"></script>
-<script type="text/javascript" src="materialize/js/materialize.js"></script>
+  </div>
+</div>
+  </div>
+
+  <footer class="footer">
+    Spring boot
+  </footer>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+    });
+    
+    $(document).ready(function() {
+        M.updateTextFields();
+      });
+  </script>
+
+  <script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>
+
 </html>
