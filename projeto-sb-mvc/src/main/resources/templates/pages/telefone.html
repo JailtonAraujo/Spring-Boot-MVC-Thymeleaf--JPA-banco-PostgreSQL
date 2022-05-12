@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+  <header th:replace="fragments/header :: header"></header>
+  
+  <div class="div-main">
+    <div class="div-submain">
+    <div class="form-group">
+      <div th:each="p : ${pessoaobj}">
+      		<div class="row">
+      			<p>Nome: <span th:text="${pessoaobj.nome}"></span> </p>
+      			<p>Sobrenome: <span th:text="${pessoaobj.sobrenome}"></span> </p>
+      		</div>
+      </div>
+      
+       <div class="form-group">
+       <form th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post">
+       		<label>Numero:</label>
+       		<input type="text" name="numero" placeholder="(00) 00000-0000" required="required">
+
+       		<label>Tipo:</label>
+       		
+					<p>
+						<label> 
+							<input name="tipo" type="radio" value="pessoal" checked /> <span>Pessoal</span>
+						</label>
+					</p>
+					<p>
+						<label> 
+							<input name="tipo" type="radio" value="domiciliar" /> <span>Domiciliar</span>
+						</label>
+					</p>
+					<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
+					<a class="btn waves-effect waves-light"  type="button">Voltar</a>
+					</form>
+				</div>
+
+    <div class="tbl-persons">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th scope="col">ID:</th>
+          <th scope="col">Numero</th>
+          <th scope="col">Tipo:</th>
+          <th scope="col">Excluir:</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="telefone : ${telefones}">
+          <td th:text="${telefone.id}"></td>
+          <td th:text="${telefone.numero}"></td>
+          <td th:text="${telefone.tipo}"></td>
+          <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="excluir">delete</i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+</div>
+  <footer class="footer">
+    Spring boot
+  </footer>
+  
+  
+  <script type="text/javascript" src="/js/scriptpessoa.js"></script>
+  <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+</body>
+
+</html>

@@ -29,3 +29,16 @@ function salvarFone(){
     
       $('#formTel').trigger("reset");
 }
+
+function listar(){
+	let idPerson = $('#idPerson').val();
+	
+	$.ajax({
+        url:`telefone/listarfones/${idPerson}`,
+        method: 'GET',
+        dataType: 'json'
+    }).done(function(result){
+		console.log(result);
+        
+    });
+}

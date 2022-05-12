@@ -32,13 +32,14 @@ xmlns:th="http://www.thymeleaf.org">
         <label for="">idade</label>
         <input type="number" name="idade" th:field="*{idade}" class="validate" required="required">
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
-        <a class="btn waves-effect waves-light" href="listarpessoas">Listar</a>
+        <button class="btn waves-effect waves-light" type="reset">Limpar</button>
         
-       	<button th:if="${pessoaobj.id} != null" data-target="modal1" class="modal-trigger btn waves-effect waves-light">TELEFONES
-       	<i class="small material-icons right" title="Telefones">contact_phone</i></button>
+       	<a  th:href="@{/telefone/init/{pessoaid}(pessoaid = ${pessoaobj.id})}" th:if="${pessoaobj.id} != null" 
+       	 class="btn waves-effect waves-light">TELEFONES
+       	<i class="small material-icons right" title="Telefones">contact_phone</i></a>
       </form>
     </div>
-
+	
     <div class="form-grup-search">
       <form action="findbyname" method="post" style="margin-top: 20px;">
         <input type="text" name="nome" placeholder="Buscar por nome">
@@ -72,51 +73,6 @@ xmlns:th="http://www.thymeleaf.org">
     </table>
   </div>
 </div>
-  </div>
-  
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Telefones </h4>
-      <form action="" method="post" style="margin-top: 20px;" id="formTel">
-      	<label for="numero">Numero:</label>
-        <input type="text" name="numero" id="foneNumber" placeholder="(**) *****-****">
-        
-        <label>Tipo:</label>
-        <p>
-	      	<label>
-	        	<input name="tipo" type="radio" value="Pessoal" id="typeNumber" checked />
-	        	<span>Pessoal</span>
-	      	</label>
-    	</p>
-    	<p>
-	      <label>
-	        <input name="tipo" type="radio" id="typeNumber" value="Domiciliar" />
-	        <span>Domiciliar</span>
-	      </label>
-    	</p>
-        
-        <button class="btn waves-effect waves-light" type="button" onclick="salvarFone();">Salvar</button>
-      </form>
-      <table>
-      	<thead>
-      		<tr>
-      			<th scope="col">ID:</th>
-      			<th scope="col">Numero:</th>
-      			<th scope="col">Excluir:</th>
-      		</tr>
-      	</thead>
-      	<tbody>
-      		<tr th:each="telefone : ${telefones}">
-      			<td th:text="${telefone.id}"></td>
-      			<td th:text="${telefone.numero}"></td>
-      			<td><a th:href="@{/deletartelefone/{idtelefone}(idtelefone=${telefone.id}}"><i class="small material-icons" title="excluir">delete</i></a></td>
-      		</tr>
-      	</tbody>
-      </table>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-close btn waves-effect waves-light">Close</button>
-    </div>
   </div>
 
   <footer class="footer">

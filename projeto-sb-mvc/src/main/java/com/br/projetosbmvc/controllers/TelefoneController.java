@@ -1,8 +1,12 @@
 package com.br.projetosbmvc.controllers;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.model.Telefone;
+import com.br.projetosbmvc.repository.PessoaRepository;
 import com.br.projetosbmvc.repository.TelefoneRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("**/telefone")
@@ -26,31 +33,48 @@ public class TelefoneController implements Serializable{
 	@Autowired
 	TelefoneRepository telefoneRepository;
 	
-	@PostMapping(value = "/salvar/{idpessoa}")
-	public ModelAndView salvar(@RequestParam(name = "numero") String numero, @RequestParam(name = "tipo") String tipo,
-			@PathVariable("idpessoa") Long idpessoa) {
+	@Autowired
+	PessoaRepository pessoaRepository;
+	
+	@GetMapping("/init/{pessoaid}")
+	public ModelAndView init(@PathVariable(name = "pessoaid") Long pessoaid) {
 		
-		Telefone telefone = new Telefone();
-		telefone.setNumero(numero);
-		telefone.setTipo(tipo);
-		telefone.getPessoa().setId(idpessoa);
-		Telefone fone = telefoneRepository.saveAndFlush(telefone);
+		ModelAndView modelAndView = new ModelAndView("pages/telefone");
+		
+		Pessoa pessoa = new Pessoa();
+		modelAndView.addObject("pessoaobj",pessoaRepository.findById(pessoaid).get());
+		modelAndView.addObject("telefones", telefoneRepository.findAllFonesByPersonName(pessoaid) );
+		
+		return modelAndView;
+	}
+	
+	@PostMapping(value = "/salvar/{idpessoa}")
+	public ModelAndView salvar(Telefone telefone ,@PathVariable("idpessoa") Long idpessoa) {
+		
+		telefoneRepository.save(telefone);
 		
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-		modelAndView.addObject("telefone", fone);
-		modelAndView.addObject("pessoaobj", new Pessoa());
+		
+		modelAndView.addObject("pessoaobj", pessoaRepository.findById(idpessoa).get());
+		modelAndView.addObject("telefones", telefoneRepository.findAllFonesByPersonName(idpessoa));
 
 		return modelAndView;
 	}
 	
 	
 	@GetMapping("/listarfones/{idpessoa}")
-	public ModelAndView listar (@PathVariable("idpessoa") Long idpessoa) {
+	public String listar (@PathVariable("idpessoa") Long idpessoa) {
 		
-		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-		modelAndView.addObject("telefones", telefoneRepository.findAll());
-		modelAndView.addObject("pessoaobj", new Pessoa());
+		List<Telefone> telefones = telefoneRepository.findAll();
 		
-		return modelAndView;
+		Gson gson = new GsonBuilder()
+				  .excludeFieldsWithoutExposeAnnotation() //ignorar campos sem a anotação @Expose
+				  .setPrettyPrinting() //formata o json para imprimir no console de forma mais legível 
+				  .create();
+		
+		String json = gson.toJson(telefones);
+		System.out.println(json);
+		
+		return json;
 	}
 }

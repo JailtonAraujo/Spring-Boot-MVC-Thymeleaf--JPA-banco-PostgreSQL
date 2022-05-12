@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
+import com.google.gson.annotations.Expose;
+
 @SuppressWarnings("deprecation")
 @Table(name = "telefone")
 @Entity
@@ -21,19 +23,32 @@ public class Telefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Expose
 	private String numero;
 
+	@Expose
 	private String tipo;
 
-	
+	@Expose
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_pessoa_telefone")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pessoa pessoa = new Pessoa();
+
+	public Telefone() {}
+	
+	public Telefone(Long id, String numero, String tipo) {
+		this.id = id;
+		this.numero = numero;
+		this.tipo = tipo;
+	}
+
+
 
 	public Long getId() {
 		return id;

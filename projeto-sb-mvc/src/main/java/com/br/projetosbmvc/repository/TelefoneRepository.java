@@ -13,5 +13,6 @@ import com.br.projetosbmvc.model.Telefone;
 @Transactional
 public interface TelefoneRepository extends JpaRepository<Telefone, Long>{
 
-	
+	@Query("select new com.br.projetosbmvc.model.Telefone (fone.id, fone.numero, fone.tipo) from Telefone fone where fone.id = ?1 ")
+	public List<Telefone> findAllFonesByPersonName(Long personId);
 }
