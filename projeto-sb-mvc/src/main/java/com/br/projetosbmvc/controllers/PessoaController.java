@@ -1,5 +1,6 @@
 package com.br.projetosbmvc.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +18,10 @@ import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.repository.PessoaRepository;
 
 @Controller
-public class PessoaController {
+public class PessoaController implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	PessoaRepository pessoaRepository;
 	
