@@ -24,7 +24,7 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="form-group">
       <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
         <label>ID:</label>
-        <input name="id" th:field="*{id}" readonly="readonly">
+        <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
         <label for="">Nome:</label>
         <input type="text" name="nome" th:field="*{nome}" class="validate" required="required">
         <label for="">sobrenome</label>
@@ -77,25 +77,25 @@ xmlns:th="http://www.thymeleaf.org">
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Telefones </h4>
-      <form th:action="@{telefone/salvar/{idpessoa}(idpessoa=${pessoaobj.id})}" method="post" style="margin-top: 20px;">
+      <form action="" method="post" style="margin-top: 20px;" id="formTel">
       	<label for="numero">Numero:</label>
-        <input type="text" name="numero" placeholder="(**) *****-****">
+        <input type="text" name="numero" id="foneNumber" placeholder="(**) *****-****">
         
         <label>Tipo:</label>
         <p>
 	      	<label>
-	        	<input name="tipo" type="radio" value="Pessoal" checked />
+	        	<input name="tipo" type="radio" value="Pessoal" id="typeNumber" checked />
 	        	<span>Pessoal</span>
 	      	</label>
     	</p>
     	<p>
 	      <label>
-	        <input name="tipo" type="radio" value="Domiciliar" />
+	        <input name="tipo" type="radio" id="typeNumber" value="Domiciliar" />
 	        <span>Domiciliar</span>
 	      </label>
     	</p>
         
-        <button class="btn waves-effect waves-light" type="submit">Salvar</button>
+        <button class="btn waves-effect waves-light" type="button" onclick="salvarFone();">Salvar</button>
       </form>
       <table>
       	<thead>

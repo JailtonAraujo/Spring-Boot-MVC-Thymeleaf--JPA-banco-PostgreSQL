@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.Pessoa;
@@ -24,17 +27,22 @@ public class TelefoneController implements Serializable{
 	TelefoneRepository telefoneRepository;
 	
 	@PostMapping(value = "/salvar/{idpessoa}")
-	public ModelAndView salvar(Telefone telefone, @PathVariable("idpessoa") Long idpessoa) {
+	public ModelAndView salvar(@RequestParam(name = "numero") String numero, @RequestParam(name = "tipo") String tipo,
+			@PathVariable("idpessoa") Long idpessoa) {
 		
+		Telefone telefone = new Telefone();
+		telefone.setNumero(numero);
+		telefone.setTipo(tipo);
 		telefone.getPessoa().setId(idpessoa);
 		Telefone fone = telefoneRepository.saveAndFlush(telefone);
 		
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-		modelAndView.addObject("telefone", telefone);
+		modelAndView.addObject("telefone", fone);
 		modelAndView.addObject("pessoaobj", new Pessoa());
 
 		return modelAndView;
 	}
+	
 	
 	@GetMapping("/listarfones/{idpessoa}")
 	public ModelAndView listar (@PathVariable("idpessoa") Long idpessoa) {
