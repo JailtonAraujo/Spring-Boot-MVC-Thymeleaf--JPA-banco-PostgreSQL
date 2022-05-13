@@ -23,22 +23,19 @@ public class Telefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Expose
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Expose
 	private String numero;
 
-	@Expose
 	private String tipo;
 
-	@Expose
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_pessoa_telefone")
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Pessoa pessoa = new Pessoa();
+	private Pessoa pessoa;
 
 	public Telefone() {}
 	

@@ -56,7 +56,7 @@ xmlns:th="http://www.thymeleaf.org">
           <td th:text="${telefone.id}"></td>
           <td th:text="${telefone.numero}"></td>
           <td th:text="${telefone.tipo}"></td>
-          <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="excluir">delete</i></a></td>
+          <td><a th:href="@{/telefone/excluir/{foneid}(fone=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
         </tr>
       </tbody>
     </table>

@@ -51,30 +51,35 @@ public class TelefoneController implements Serializable{
 	@PostMapping(value = "/salvar/{idpessoa}")
 	public ModelAndView salvar(Telefone telefone ,@PathVariable("idpessoa") Long idpessoa) {
 		
+		Pessoa pessoa = new Pessoa();
+		pessoa.setId(idpessoa);
+		telefone.setPessoa(pessoa);
 		telefoneRepository.save(telefone);
 		
-		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
+		ModelAndView modelAndView = new ModelAndView("pages/telefone");
+		
+		
+		
+		List <Telefone> fones = telefoneRepository.findAllFonesByPersonName(idpessoa);
 		
 		modelAndView.addObject("pessoaobj", pessoaRepository.findById(idpessoa).get());
-		modelAndView.addObject("telefones", telefoneRepository.findAllFonesByPersonName(idpessoa));
+		modelAndView.addObject("telefones", fones);
 
 		return modelAndView;
 	}
 	
-	
-	@GetMapping("/listarfones/{idpessoa}")
-	public String listar (@PathVariable("idpessoa") Long idpessoa) {
+	@GetMapping("/excluir/{foneid}")
+	public ModelAndView excluir (@PathVariable("foneid") Long foneid) {
 		
-		List<Telefone> telefones = telefoneRepository.findAll();
+		Pessoa pessoa = telefoneRepository.findById(foneid).get().getPessoa();
 		
-		Gson gson = new GsonBuilder()
-				  .excludeFieldsWithoutExposeAnnotation() //ignorar campos sem a anotação @Expose
-				  .setPrettyPrinting() //formata o json para imprimir no console de forma mais legível 
-				  .create();
+		telefoneRepository.deleteById(foneid);
+		ModelAndView modelAndView = new ModelAndView("pages/telefone");
+		modelAndView.addObject("pessoaobj", pessoa);
+		modelAndView.addObject("telefones", telefoneRepository.findAllFonesByPersonName(pessoa.getId()));
+		modelAndView.addObject("msg", "Excluido com sucesso!");
 		
-		String json = gson.toJson(telefones);
-		System.out.println(json);
-		
-		return json;
+		return modelAndView;
 	}
+	
 }
