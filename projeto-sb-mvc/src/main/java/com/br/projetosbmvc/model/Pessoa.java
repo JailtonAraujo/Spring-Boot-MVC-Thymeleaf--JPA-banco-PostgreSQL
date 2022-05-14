@@ -26,7 +26,7 @@ public class Pessoa implements Serializable {
 	private Long id;
 	
 	@NotNull(message = "O nome não ode ser nulo!")
-	@NotEmpty(message = "O nome não pode ser vazio!")
+	@NotEmpty(message = "O nome não pode ser vazio !")
 	private String nome;
 
 	@NotNull( message ="Sobrenome não pode ser nulo")
