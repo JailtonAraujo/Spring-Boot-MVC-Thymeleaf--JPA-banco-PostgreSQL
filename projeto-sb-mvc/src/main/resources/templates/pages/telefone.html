@@ -19,10 +19,13 @@ xmlns:th="http://www.thymeleaf.org">
       </div>
       
        <div class="form-group">
-       <form th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post">
+       <form th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" id="formFone">
        		<label>Numero:</label>
-       		<input type="text" name="numero" placeholder="(00) 00000-0000" required="required">
-
+       		<div id="validate01">
+       			<input type="text" name="numero" placeholder="(00) 00000-0000"  id="foneNumber" maxlength="11">
+       			<span id="validateMsg01"></span>
+			</div>
+			
        		<label>Tipo:</label>
        		
 					<p>
@@ -68,8 +71,8 @@ xmlns:th="http://www.thymeleaf.org">
     Spring boot
   </footer>
   
-  
-  <script type="text/javascript" src="/js/scriptpessoa.js"></script>
+   <script type="text/javascript" src="/js/scriptTelefone.js"></script>
+  <script type="text/javascript" src="/js/scripit.js"></script>
   <script type="text/javascript" src="/materialize/js/materialize.js"></script>
 </body>
 
