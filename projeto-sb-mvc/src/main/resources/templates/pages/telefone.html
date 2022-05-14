@@ -36,7 +36,7 @@ xmlns:th="http://www.thymeleaf.org">
 						</label>
 					</p>
 					<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
-					<a class="btn waves-effect waves-light"  type="button">Voltar</a>
+					<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
 					</form>
 				</div>
 
@@ -56,7 +56,7 @@ xmlns:th="http://www.thymeleaf.org">
           <td th:text="${telefone.id}"></td>
           <td th:text="${telefone.numero}"></td>
           <td th:text="${telefone.tipo}"></td>
-          <td><a th:href="@{/telefone/excluir/{foneid}(fone=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
+          <td><a th:href="@{/telefone/excluir/{foneid}(foneid=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
         </tr>
       </tbody>
     </table>

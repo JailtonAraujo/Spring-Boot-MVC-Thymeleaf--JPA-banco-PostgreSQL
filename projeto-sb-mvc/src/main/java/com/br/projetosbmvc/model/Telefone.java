@@ -34,15 +34,16 @@ public class Telefone implements Serializable {
 
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_pessoa_telefone")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Pessoa pessoa;
+	@ManyToOne
+	private Pessoa pessoa = new Pessoa();
 
 	public Telefone() {}
 	
-	public Telefone(Long id, String numero, String tipo) {
+	public Telefone(Long id, String numero, String tipo, Long idpesoa) {
 		this.id = id;
 		this.numero = numero;
 		this.tipo = tipo;
+		this.pessoa.setId(idpesoa);
 	}
 
 

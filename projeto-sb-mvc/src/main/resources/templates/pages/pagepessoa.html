@@ -22,6 +22,9 @@ xmlns:th="http://www.thymeleaf.org">
   <div class="div-main">
     <div class="div-submain">
     <div class="form-group">
+	    <div th:each="m : ${msg}">
+	    	<span th:text="${m}"></span>
+	    </div>
       <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
         <label>ID:</label>
         <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
@@ -33,10 +36,6 @@ xmlns:th="http://www.thymeleaf.org">
         <input type="number" name="idade" th:field="*{idade}" class="validate" required="required">
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
         <button class="btn waves-effect waves-light" type="reset">Limpar</button>
-        
-       	<a  th:href="@{/telefone/init/{pessoaid}(pessoaid = ${pessoaobj.id})}" th:if="${pessoaobj.id} != null" 
-       	 class="btn waves-effect waves-light">TELEFONES
-       	<i class="small material-icons right" title="Telefones">contact_phone</i></a>
       </form>
     </div>
 	
@@ -57,6 +56,7 @@ xmlns:th="http://www.thymeleaf.org">
           <th scope="col">Idade:</th>
           <th scope="col">Editar:</th>
           <th scope="col">Excluir:</th>
+          <th scope="col">Telefone:</th>
         </tr>
       </thead>
 
@@ -68,6 +68,7 @@ xmlns:th="http://www.thymeleaf.org">
           <td th:text="${pessoa.idade}"></td>
           <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="editar">edit</i></a></td>
           <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><i class="small material-icons" title="excluir">delete</i></a></td>
+          <td><a th:href="@{/telefone/init/{pessoaid}(pessoaid = ${pessoa.id})}"><i class="small material-icons" title="Telefones">contact_phone</i></a></td>
         </tr>
       </tbody>
     </table>
