@@ -7,8 +7,8 @@ document.querySelector('#formPerson').addEventListener('submit',(e)=>{
 	let idadeValue = document.querySelector('#idade').value;
 		
 	for (let i = 0;i<elements.length;i++){
-		 let input = elements[i].querySelector('#validate > input');
-		 let span = elements[i].querySelector('#validate > span');
+		 let input = elements[i].querySelector('.valid > input');
+		 let span = elements[i].querySelector('.valid > span');
 		 
 		 let elementValue = input.value;
 		 
@@ -36,5 +36,27 @@ document.querySelector('#formPerson').addEventListener('submit',(e)=>{
 		}
 	}
 })
+
+function buscarViaCep(){
+	
+	let divCep = document.querySelector('.cep');
+	let inputCep = divCep.querySelector('input');
+
+	if(inputCep.value == null || inputCep.value.trim() == ''){
+		
+		let regExp = /^[0-9]{8}$/;
+		
+		if(regExp.test(inputCep.value == true)){
+			
+			const options = {
+				method: 'GET'
+			}
+
+			fetch()
+
+		}
+		
+	}
+}	
 
 

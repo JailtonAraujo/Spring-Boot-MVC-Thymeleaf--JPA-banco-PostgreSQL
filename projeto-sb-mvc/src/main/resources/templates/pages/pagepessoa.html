@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/fragments/head :: head"></head>
-<head><link rel="stylesheet" href="/css/pessoastyle.css"></head>
+<head><link rel="stylesheet" href="/css/stylebase.css"></head>
 
 <body>
 
@@ -17,27 +17,68 @@
 	    <div th:each="m : ${msg}">
 	    	<span th:text="${m}"></span>
 	    </div>
-      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson">
+      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="row">
         <label>ID:</label>
         <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
         
-        <div id="validate">
+        
+        <div id="validate" class="valid col s6">
         <label for="">NOME:</label>
         <input type="text" name="nome" th:field="*{nome}" class="validate">
         <span id="msgValid"></span>
         </div>
         
-        <div id="validate">
+        <div id="validate" class="valid col s6">
         <label for="">SOBRENOME:</label>
         <input type="text" name="sobrenome" th:field="*{sobrenome}" class="validate" >
          <span id="msgValid"></span>
         </div>
         
-        <div id="validate">
+        
+        <div id="validate" class="valid">
         <label for="">IDADE:</label>
         <input type="number" name="idade" th:field="*{idade}" class="validate" id="idade">
          <span id="msgValidIdade"></span>
         </div>
+        
+        
+
+        <div id="cep" class="valid col s6">
+        	<label>CEP:</label>
+          <input type="text" name="cep" class="validate">
+          <span id="msgValid"></span>
+        </div>
+
+        <div id="validate" class="valid col s6">
+        	<label>RUA:</label>
+          <input type="text" name="rua" class="validate">
+          <span id="msgValid"></span>
+        </div>
+
+        <div id="validate" class="valid col s6">
+        	<label>BAIRRO:</label>
+          <input type="text" name="bairro" class="validate">
+          <span id="msgValid"></span>
+        </div>
+
+        <div id="validate" class="valid col s6">
+        	<label>CIDADE:</label>
+          <input type="text" name="cidade" class="validate">
+          <span id="msgValid"></span>
+        </div>
+
+        <div id="validate" class="valid col s6">
+        	<label>UF:</label>
+          <input type="text" name="uf" class="validate">
+          <span id="msgValid"></span>
+        </div>
+
+        <div id="validate" class="valid col s6">
+        	<label>NUMERO:</label>
+          <input type="text" name="numero" class="validate">
+          <span id="msgValid"></span>
+        </div>
+      
         
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
         <button class="btn waves-effect waves-light" type="reset">Limpar</button>
