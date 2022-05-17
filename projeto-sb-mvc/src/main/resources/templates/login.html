@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="/fragments/head :: head"></head>
+
+<body>
+	<fieldset>
+	<legend>Login</legend>
+		<form th:action="@{/login}" method="post">
+			<div class="form-group">
+				<label>Login:</label>
+				<input type="text" name="username">
+				
+				<label>Senha:</label>
+				<input type="password" name="password">
+			</div>
+			<button type="submit" name="Logar">Logar</button>
+		</form>
+	</fieldset>
+</body>
+</html>

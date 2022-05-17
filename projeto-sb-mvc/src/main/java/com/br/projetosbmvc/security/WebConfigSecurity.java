@@ -27,8 +27,10 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET,"/").permitAll() /*PERMITE QUALQUER USUARIO ACESSAR*/
 		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
-		.and().formLogin().permitAll() /*PERMITE QUALQUER USUAIRIO*/
-		.and().logout() /*MAPEIA A URL DE LOGOUT E INVALIDA O USUARIO LOGADO*/
+		.and().formLogin().loginPage("/login").permitAll() /*PERMITE QUALQUER USUAIRIO*/
+		.defaultSuccessUrl("/cadastropessoa")
+		.failureUrl("/login?error=true")
+		.and().logout().logoutSuccessUrl("/login") /*MAPEIA A URL DE LOGOUT E INVALIDA O USUARIO LOGADO*/
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
@@ -48,7 +50,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 	
 	@Override /*IGNORA URLS ESPECIFICAS*/
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/static/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
 		
 	}
 }

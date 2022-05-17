@@ -6,7 +6,8 @@ xmlns:th="http://www.thymeleaf.org">
 
 <body>
 
-  <header th:replace="fragments/header :: header"></header>
+  <header th:insert="fragments/header :: header"></header>
+  <head><link rel="stylesheet" href="/css/pessoastyle.css"></head>
   
   <div class="div-main">
     <div class="div-submain">
@@ -73,7 +74,7 @@ xmlns:th="http://www.thymeleaf.org">
   
    <script type="text/javascript" src="/js/scriptTelefone.js"></script>
   <script type="text/javascript" src="/js/scripit.js"></script>
-  <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
