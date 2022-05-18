@@ -25,58 +25,58 @@
         <div id="validate" class="valid col s6">
         <label for="">NOME:</label>
         <input type="text" name="nome" th:field="*{nome}" class="validate">
-        <span id="msgValid"></span>
+        <span id="msgValid" class="msgValid"></span>
         </div>
         
         <div id="validate" class="valid col s6">
         <label for="">SOBRENOME:</label>
         <input type="text" name="sobrenome" th:field="*{sobrenome}" class="validate" >
-         <span id="msgValid"></span>
+         <span id="msgValid" class="msgValid"></span>
         </div>
         
         
         <div id="validate" class="valid">
         <label for="">IDADE:</label>
         <input type="number" name="idade" th:field="*{idade}" class="validate" id="idade">
-         <span id="msgValidIdade"></span>
+         <span id="msgValidIdade" class="msgValid"></span>
         </div>
         
-        
+        <input type="text" hidden="hidden" name="endereciId" th:field="*{endereco.id}">
 
-        <div id="cep" class="valid col s6">
+        <div id="div-cep" class="valid col s6">
         	<label>CEP:</label>
-          <input type="text" name="cep" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="cep" class="validate" onblur="buscarViaCep();" th:field="*{endereco.cep}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
 
-        <div id="validate" class="valid col s6">
+        <div class="valid col s6">
         	<label>RUA:</label>
-          <input type="text" name="rua" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="rua" class="validate" id="rua" th:field="*{endereco.rua}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
 
-        <div id="validate" class="valid col s6">
+        <div class="valid col s6">
         	<label>BAIRRO:</label>
-          <input type="text" name="bairro" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="bairro" class="validate" id="bairro" th:field="*{endereco.bairro}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
 
-        <div id="validate" class="valid col s6">
+        <div class="valid col s6">
         	<label>CIDADE:</label>
-          <input type="text" name="cidade" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="cidade" class="validate" id="cidade" readonly="readonly" th:field="*{endereco.cidade}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
 
-        <div id="validate" class="valid col s6">
+        <div class="valid col s6">
         	<label>UF:</label>
-          <input type="text" name="uf" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="uf" class="validate" id="uf" readonly="readonly" th:field="*{endereco.uf}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
 
-        <div id="validate" class="valid col s6">
+        <div class="valid col s6">
         	<label>NUMERO:</label>
-          <input type="text" name="numero" class="validate">
-          <span id="msgValid"></span>
+          <input type="text" name="numero" class="validate" id="numero" th:field="*{endereco.numero}">
+          <span id="msgValid" class="msgValid"></span>
         </div>
       
         
@@ -93,7 +93,7 @@
     </div>
 
     <div class="tbl-persons"sec:authorize="hasRole('ROLE_ADMIN')">
-    <table class="striped">
+    <table class="striped responsive-table">
       <thead>
         <tr>
           <th scope="col">ID:</th>

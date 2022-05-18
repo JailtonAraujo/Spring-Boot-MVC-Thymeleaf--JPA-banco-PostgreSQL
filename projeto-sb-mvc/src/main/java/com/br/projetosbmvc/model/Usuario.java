@@ -3,6 +3,7 @@ package com.br.projetosbmvc.model;
 import java.util.Collection;
 import java.util.List;
 
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,8 @@ public class Usuario implements UserDetails{
 			joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id", table = "usuario"),
 			inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id", table = "role"))
 	private List<Role> roles;
+	
+	
 
 	public Long getId() {
 		return id;

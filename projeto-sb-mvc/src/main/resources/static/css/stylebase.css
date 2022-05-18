@@ -58,6 +58,11 @@ body{
     width: 100%;
 }
 
+.msgValid{
+    color: red;
+}
+
+
 footer{
 	display:flex;
 	align-items:center;
@@ -69,3 +74,12 @@ footer{
     bottom: 5px;
     color: yellow;
 }
+
+@media (max-width: 960px){
+	
+	.row .col.s6{width:100%;}
+	
+	.div-submain{
+		width: 100%;
+	}
+} 

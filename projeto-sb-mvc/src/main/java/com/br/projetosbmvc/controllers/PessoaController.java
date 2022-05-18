@@ -58,6 +58,8 @@ public class PessoaController implements Serializable{
 			return modelAndView;
 		}
 		
+		pessoa.getEndereco().setPessoa(pessoa);
+		
 		pessoaRepository.save(pessoa);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
