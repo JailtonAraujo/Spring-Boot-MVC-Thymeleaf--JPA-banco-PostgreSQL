@@ -13,6 +13,6 @@ import com.br.projetosbmvc.model.Pessoa;
 @Transactional
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 
-	@Query("select p from Pessoa p where p.nome like ?1% ")
-	public List<Pessoa> findByName(String nome);
+	@Query("select new com.br.projetosbmvc.model.Pessoa (p.id, p.nome, p.sobrenome, p.idade) from Pessoa p where p.nome like ?1% and p.sexo like ?2%")
+	public List<Pessoa> findByName(String nome, String sexo);
 }

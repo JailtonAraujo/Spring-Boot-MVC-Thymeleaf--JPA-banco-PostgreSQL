@@ -75,7 +75,7 @@ footer{
     color: yellow;
 }
 
-@media (max-width: 960px){
+@media (max-width: 1080px){
 	
 	.row .col.s6{width:100%;}
 	

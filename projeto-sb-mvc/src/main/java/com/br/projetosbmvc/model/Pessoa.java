@@ -36,12 +36,23 @@ public class Pessoa implements Serializable {
 
 	@Min(value = 18, message = "A idade deve ser superior a 18 anos")
 	private int idade;
+	
+	private String sexo;
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
 
 	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private Endereco endereco = new Endereco();
+	
+	public Pessoa() {}
+
+	public Pessoa(Long id, String nome, String sobrenome, int idade) {
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.idade = idade;
+	}
 
 	public Long getId() {
 		return id;
@@ -73,6 +84,14 @@ public class Pessoa implements Serializable {
 
 	public int getIdade() {
 		return idade;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public List<Telefone> getTelefones() {

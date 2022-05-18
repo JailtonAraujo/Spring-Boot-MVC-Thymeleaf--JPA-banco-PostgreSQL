@@ -34,7 +34,7 @@ public class PessoaController implements Serializable{
 	public ModelAndView init() {
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findAll());
+		modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
 		
 		return modelAndView;
 	}
@@ -47,7 +47,7 @@ public class PessoaController implements Serializable{
 
 			ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 			modelAndView.addObject("pessoaobj", new Pessoa());
-			modelAndView.addObject("pessoas", pessoaRepository.findAll());
+			modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
 			
 			List<String> msg = new ArrayList<String>();
 			for(ObjectError objectError : bindingResult.getAllErrors()) {
@@ -63,10 +63,11 @@ public class PessoaController implements Serializable{
 		pessoaRepository.save(pessoa);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findAll());
+		modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
 		return modelAndView;
 	}
 	
+	/*
 	@GetMapping(value = "/listarpessoas")
 	public ModelAndView pessoas() {
 		
@@ -77,8 +78,8 @@ public class PessoaController implements Serializable{
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		
 		return modelAndView;
-		
 	}
+	*/
 	
 	@GetMapping(value = "/editarpessoa/{idpessoa}")
 	public ModelAndView editar(@PathVariable("idpessoa") String idpessoa) {
@@ -97,15 +98,17 @@ public class PessoaController implements Serializable{
 		
 		ModelAndView andView = new ModelAndView("pages/pagepessoa");
 		andView.addObject("pessoaobj", new Pessoa());
-		andView.addObject("pessoas", pessoaRepository.findAll());
+		andView.addObject("pessoas", pessoaRepository.findByName("",""));
 		return andView;
 	}
 	
 	@PostMapping(value = "**/findbyname")
-	public ModelAndView findByName(@RequestParam(name = "nome") String nome) {
+	public ModelAndView findByName(@RequestParam(name = "nome") String nome, 
+			@RequestParam(name = "sexoPesquisa") String sexoPesquisa) {
+		
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		
-		modelAndView.addObject("pessoas", pessoaRepository.findByName(nome));
+		modelAndView.addObject("pessoas", pessoaRepository.findByName(nome, sexoPesquisa));
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		
 		return modelAndView;

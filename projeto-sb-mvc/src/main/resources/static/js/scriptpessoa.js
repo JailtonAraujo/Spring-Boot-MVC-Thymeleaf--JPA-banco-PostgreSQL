@@ -2,36 +2,25 @@
 document.querySelector('#formPerson').addEventListener('submit',(e)=>{
 	e.preventDefault();
 	
-	let elements = document.querySelectorAll('#formPerson > div');
+	let elements = document.querySelectorAll('#formPerson > .valid');
 	let valid = true;
-	let idadeValue = document.querySelector('#idade').value;
 		
 	for (let i = 0;i<elements.length;i++){
-		 let input = elements[i].querySelector('.valid > input');
-		 let span = elements[i].querySelector('.valid > span');
+		 let input = elements[i].querySelector('input');
+		 let span = elements[i].querySelector('span');
 		 
 		 let elementValue = input.value;
 		 
-		 if(elementValue === null || elementValue.trim() === ''){
+		 if(elementValue === null || elementValue.trim() === '' || elementValue === '0'){
 			span.textContent = '*Campo Obrigatorio';
 			valid = false;
-		}
-		
-	}
-	
-	if(valid == true){
-		var regExp = /^[0-9]{2,3}$/;
-		
-		if(regExp.test(idadeValue) != true){
-			document.querySelector('#msgValidIdade').textContent = 'Idade inválida!';
-		}else if(idadeValue < 18){
-			document.querySelector('#msgValidIdade').textContent = 'A Idade precisa ser superior a 18 anos!';
-		}
-		
-		else{
+			break;
+		}	
+	}	
+		if(valid == true){
 			document.querySelector('#formPerson').submit();
 		}
-	}
+	
 })
 
 
@@ -67,7 +56,7 @@ function buscarViaCep(){
 				document.querySelector('#cidade').value = json.localidade;
 				document.querySelector('#uf').value = json.uf;
 				
-			}).catch(function(error){
+			}).catch(error => {
 				elert('Cep invalido!');
 				limparInputs();
 			})
