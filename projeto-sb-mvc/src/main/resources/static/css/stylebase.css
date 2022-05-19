@@ -49,6 +49,9 @@ body{
     flex-direction: column;
     align-items: center;
 }
+.form-grup-search button{
+	margin-bottom:5px ;
+}
 
 .form-grup-search form{
     width: 300px ;

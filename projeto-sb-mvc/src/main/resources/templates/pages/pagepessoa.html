@@ -101,7 +101,7 @@
     </div>
 	
     <div class="form-grup-search">
-      <form action="findbyname" method="post" style="margin-top: 20px;">
+      <form action="findbyname" method="post" style="margin-top: 20px;" id="findbyname">
 	      <label>Browser Select</label>
 		  <select class="browser-default" name="sexoPesquisa">
 		    <option value="" disabled selected>Choose your option</option>
@@ -113,7 +113,7 @@
         <input type="text" name="nome" placeholder="Buscar por nome">
         
         <button class="btn waves-effect waves-light" type="submit">BUSCAR</button>
-        <button class="btn waves-effect waves-light" type="submit" onclick="document.getElemetById('formPerson').method = 'get'">PDF</button>
+        <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'get';">PDF</button>
       </form>
     </div>
 
@@ -151,8 +151,4 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
- <footer class="footer">
-    Spring boot
-  </footer>
-  
 </html>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,9 +122,23 @@ public class PessoaController implements Serializable{
 	
 	@GetMapping(value = "**/findbyname")
 	public void printPDF(@RequestParam(name = "nome") String nome, 
-			@RequestParam(name = "sexoPesquisa") String sexoPesquisa, HttpServletRequest request, HttpServletRequest response) {
+			@RequestParam(name = "sexoPesquisa") String sexoPesquisa, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		System.out.println("Pegou aqui!");
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		
+		pessoas = pessoaRepository.findByNameReport(nome, sexoPesquisa);
+		
+		byte [] pdf = reportUtil.generatedReport(pessoas, sexoPesquisa, request.getServletContext());
+		
+		response.setContentLength(pdf.length);
+		
+		response.setContentType("application/octet-stream");
+		
+		String headerKey ="Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", "realtorio.pdf");
+		
+		response.setHeader(headerKey, headerValue);
+		response.getOutputStream().write(pdf);
 	}
 		
 	}

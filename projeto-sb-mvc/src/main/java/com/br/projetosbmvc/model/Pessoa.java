@@ -53,6 +53,15 @@ public class Pessoa implements Serializable {
 		this.sobrenome = sobrenome;
 		this.idade = idade;
 	}
+	
+	
+
+	public Pessoa(String nome,String sobrenome, String cidade, String uf) {
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.endereco.setCidade(cidade);
+		this.endereco.setUf(uf);
+	}
 
 	public Long getId() {
 		return id;
