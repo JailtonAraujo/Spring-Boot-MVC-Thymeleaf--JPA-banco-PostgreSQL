@@ -64,15 +64,13 @@ body{
 
 
 footer{
-	display:flex;
-	align-items:center;
-    justify-content: center;
+	
     height: 50px;
     background-color: black;
-    width:100%;
-    position: relative;
-    bottom: 5px;
-    color: yellow;
+   	position: fixed;
+  	left: 0;
+  	bottom: 0;
+  	width: 100%;
 }
 
 @media (max-width: 1080px){
