@@ -67,7 +67,7 @@ footer{
 	
     height: 50px;
     background-color: black;
-   	position: fixed;
+   	position: absolute;
   	left: 0;
   	bottom: 0;
   	width: 100%;

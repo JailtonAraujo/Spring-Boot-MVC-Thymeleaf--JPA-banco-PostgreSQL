@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.repository.PessoaRepository;
+import com.br.projetosbmvc.services.ReportUtil;
 
 @Controller
 public class PessoaController implements Serializable{
@@ -28,7 +29,10 @@ public class PessoaController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	PessoaRepository pessoaRepository;
+	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private ReportUtil reportUtil;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView init() {
