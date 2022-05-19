@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +117,13 @@ public class PessoaController implements Serializable{
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		
 		return modelAndView;
+	}
+	
+	@GetMapping(value = "**/findbyname")
+	public void printPDF(@RequestParam(name = "nome") String nome, 
+			@RequestParam(name = "sexoPesquisa") String sexoPesquisa, HttpServletRequest request, HttpServletRequest response) {
+		
+		System.out.println("Pegou aqui!");
 	}
 		
 	}
