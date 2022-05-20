@@ -65,6 +65,15 @@ body{
     color: red;
 }
 
+.div-combo-profissao{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.div-combo-profissao a{
+	position: absolute;
+}
+
 
 footer{
 	
@@ -82,5 +91,9 @@ footer{
 	
 	.div-submain{
 		width: 100%;
+	}
+	
+	.div-contente-profisao{
+		margin-bottom: 10px;
 	}
 } 

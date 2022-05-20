@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.repository.PessoaRepository;
+import com.br.projetosbmvc.repository.ProfissaoRepository;
 import com.br.projetosbmvc.services.ReportUtil;
 
 @Controller
@@ -36,11 +37,15 @@ public class PessoaController implements Serializable{
 	@Autowired
 	private ReportUtil reportUtil;
 	
+	@Autowired
+	private ProfissaoRepository profissaoRepository;
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView init() {
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}
@@ -128,7 +133,7 @@ public class PessoaController implements Serializable{
 		
 		pessoas = pessoaRepository.findByNameReport(nome, sexoPesquisa);
 		
-		byte [] pdf = reportUtil.generatedReport(pessoas, sexoPesquisa, request.getServletContext());
+		byte [] pdf = reportUtil.generatedReport(pessoas, "pessoaReport", request.getServletContext());
 		
 		response.setContentLength(pdf.length);
 		

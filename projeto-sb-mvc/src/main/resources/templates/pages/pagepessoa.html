@@ -44,6 +44,8 @@
          <span id="msgValidIdade" class="msgValid"></span>
         </div>
         
+        
+        
        	<div class="col s6">
 	       <label>SEXO:</label>
 		  <select class="browser-default" th:field="*{sexo}">
@@ -90,6 +92,16 @@
           <input type="number" name="numero" class="validate" id="numero" th:field="*{endereco.numero}">
           <span id="msgValid" class="msgValid"></span>
         </div>
+        
+        <div class="col s6 div-contente-profisao">
+	       <label>PROFISSÃO:</label>
+	       <div class="div-combo-profissao">
+		  <select class="browser-default">
+		  	<option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nomeProfissoa}">
+		  </select>
+		   <a class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+		   </div>
+		</div>
     
       
      	<div class="col s12">

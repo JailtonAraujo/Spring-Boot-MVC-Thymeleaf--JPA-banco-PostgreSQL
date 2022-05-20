@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
 
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -30,7 +31,7 @@ public class ReportUtil implements Serializable{
 		String pathJasper = context.getRealPath("reports") + File.separator + nameReport + ".jasper";
 		
 		/*Carrega o arquivo jasper passando od dados*/
-		JasperPrint jasperPrint = JasperFillManager.fillReport(pathJasper, new HashMap(),dataSource);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(pathJasper, new HashedMap(),dataSource);
 		
 		/*Exporta para byte para fazer download do PDF*/
 		return JasperExportManager.exportReportToPdf(jasperPrint);
