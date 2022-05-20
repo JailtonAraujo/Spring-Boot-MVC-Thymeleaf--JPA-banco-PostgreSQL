@@ -7,9 +7,13 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
@@ -36,7 +40,7 @@ public class Pessoa implements Serializable {
 
 	@Min(value = 18, message = "A idade deve ser superior a 18 anos")
 	private int idade;
-	
+
 	private String sexo;
 
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
@@ -44,8 +48,14 @@ public class Pessoa implements Serializable {
 
 	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private Endereco endereco = new Endereco();
-	
-	public Pessoa() {}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profissao_id")
+	@org.hibernate.annotations.ForeignKey(name = "fk_pessoa_profissao")
+	private Profissao profissao = new Profissao();
+
+	public Pessoa() {
+	}
 
 	public Pessoa(Long id, String nome, String sobrenome, int idade) {
 		this.id = id;
@@ -53,10 +63,8 @@ public class Pessoa implements Serializable {
 		this.sobrenome = sobrenome;
 		this.idade = idade;
 	}
-	
-	
 
-	public Pessoa(String nome,String sobrenome, String cidade, String uf) {
+	public Pessoa(String nome, String sobrenome, String cidade, String uf) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.endereco.setCidade(cidade);
@@ -94,11 +102,11 @@ public class Pessoa implements Serializable {
 	public int getIdade() {
 		return idade;
 	}
-	
+
 	public String getSexo() {
 		return sexo;
 	}
-	
+
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
@@ -117,6 +125,14 @@ public class Pessoa implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Profissao getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(Profissao profissao) {
+		this.profissao = profissao;
 	}
 
 	@Override

@@ -59,6 +59,7 @@ public class PessoaController implements Serializable{
 			ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 			modelAndView.addObject("pessoaobj", new Pessoa());
 			modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
+			modelAndView.addObject("profissoes", profissaoRepository.findAll());
 			
 			List<String> msg = new ArrayList<String>();
 			for(ObjectError objectError : bindingResult.getAllErrors()) {
@@ -75,6 +76,7 @@ public class PessoaController implements Serializable{
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		modelAndView.addObject("pessoas", pessoaRepository.findByName("",""));
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		return modelAndView;
 	}
 	

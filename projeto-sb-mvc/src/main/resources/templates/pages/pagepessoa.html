@@ -59,7 +59,7 @@
 
         <div id="div-cep" class="valid col s12">
         	<label>CEP:</label>
-          <input type="text" name="cep" class="validate" onblur="buscarViaCep();" th:field="*{endereco.cep}">
+          <input type="text" name="cep" class="validate" onblur="buscarViaCep();" th:field="*{endereco.cep}" maxlength="8">
           <span id="msgValid" class="msgValid"></span>
         </div>
 
@@ -96,10 +96,10 @@
         <div class="col s6 div-contente-profisao">
 	       <label>PROFISSÃO:</label>
 	       <div class="div-combo-profissao">
-		  <select class="browser-default">
+		  <select class="browser-default" th:field="*{profissao.id}">
 		  	<option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nomeProfissoa}">
 		  </select>
-		   <a class="btn-floating waves-effect waves-light red"><i class="material-icons">add</i></a>
+		   <a class="btn-floating waves-effect waves-light red" th:href="@{/profissoes/}"><i class="material-icons">add</i></a>
 		   </div>
 		</div>
     
@@ -115,8 +115,7 @@
     <div class="form-grup-search">
       <form action="findbyname" method="post" style="margin-top: 20px;" id="findbyname">
 	      <label>Browser Select</label>
-		  <select class="browser-default" name="sexoPesquisa">
-		    <option value="" disabled selected>Choose your option</option>
+		  <select class="browser-default" name="sexoPesquisa" >
 		    <option value="FEMININO">Feminino</option>
 		    <option value="MASCULINO">Masculino</option>
 		    <option value="">Todos</option>
@@ -124,12 +123,12 @@
       
         <input type="text" name="nome" placeholder="Buscar por nome">
         
-        <button class="btn waves-effect waves-light" type="submit">BUSCAR</button>
+        <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'post';">BUSCAR</button>
         <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'get';">PDF</button>
       </form>
     </div>
 
-    <div class="tbl-persons"sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="tbl-persons" sec:authorize="hasRole('ROLE_ADMIN')">
     <table class="striped responsive-table">
       <thead>
         <tr>

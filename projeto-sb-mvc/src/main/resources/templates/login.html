@@ -3,9 +3,13 @@
 	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="/fragments/head :: head"></head>
+<head> 
+	<link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+</head>
 
 <body>
-	<fieldset>
+	<div class="content-main">
+	<fieldset class="field-form">
 	<legend>Login</legend>
 		<form th:action="@{/login}" method="post">
 			<div class="form-group">
@@ -15,8 +19,14 @@
 				<label>Senha:</label>
 				<input type="password" name="password">
 			</div>
-			<button type="submit" name="Logar">Logar</button>
+			<div class="btns">
+				<button type="submit" name="Logar">Logar</button>
+				<a href="#">Cadraste-se</a>
+			</div>
+			<p th:text="${error}"></p>
+			
 		</form>
 	</fieldset>
+	</div>
 </body>
 </html>

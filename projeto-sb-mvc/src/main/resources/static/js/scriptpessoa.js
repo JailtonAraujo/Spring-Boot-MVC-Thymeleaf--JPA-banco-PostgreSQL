@@ -48,18 +48,16 @@ function buscarViaCep(){
 			}
 
 			fetch(`https://viacep.com.br/ws/${cep}/json/`,options)
-			.then(response => response.json())
-			.then(function(json){
+			.then(response => {response.json()
+				.then(json => {
 
 				document.querySelector('#rua').value = json.logradouro;
 				document.querySelector('#bairro').value = json.bairro;
 				document.querySelector('#cidade').value = json.localidade;
 				document.querySelector('#uf').value = json.uf;
 				
-			}).catch(error => {
-				elert('Cep invalido!');
-				limparInputs();
-			})
+				})
+			}).catch(error => alert("Cep inválido!"))
 
 		}else{
 			document.querySelector('#div-cep > span').textContent = 'cep iválido!';

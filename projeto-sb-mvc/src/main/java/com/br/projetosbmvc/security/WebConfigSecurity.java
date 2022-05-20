@@ -29,7 +29,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll() /*PERMITE QUALQUER USUAIRIO*/
 		.defaultSuccessUrl("/cadastropessoa")
-		.failureUrl("/login?error=true")
+		.failureUrl("/login?error=Usuario ou senha incorretos!")
 		.and().logout().logoutSuccessUrl("/login") /*MAPEIA A URL DE LOGOUT E INVALIDA O USUARIO LOGADO*/
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}

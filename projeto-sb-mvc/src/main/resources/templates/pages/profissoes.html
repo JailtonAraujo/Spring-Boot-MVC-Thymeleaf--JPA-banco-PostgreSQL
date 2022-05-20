@@ -14,47 +14,50 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="form-group">
       
        <div class="form-group">
-       <form th:action="" method="post" id="formFone">
-       		<label>Numero:</label>
-       		<div id="validate01">
-       			<input type="text" name="numero" placeholder="(00) 00000-0000"  id="foneNumber" maxlength="11">
+       <p th:text="${msg}"></p>
+       <form action="/profissoes/salvar" method="post" id="formProfissao" class="formValidate row" th:object="${profissaoObj}">
+       		
+       		<div class="col s6">
+       			<label>ID::</label>
+       			<input type="number" name="id" placeholder="ID" readonly="readonly" th:field="*{id}">
+			</div>
+       		
+       		<div class="valid col s6">
+       			<label>NOME:</label>
+       			<input type="text" name="nomeProfissoa" placeholder="Ex: Programador" th:field="*{nomeProfissoa}">
        			<span id="validateMsg01"></span>
 			</div>
-			
-       		<label>Tipo:</label>
-       		
-					<p>
-						<label> 
-							<input name="tipo" type="radio" value="pessoal" checked /> <span>Pessoal</span>
-						</label>
-					</p>
-					<p>
-						<label> 
-							<input name="tipo" type="radio" value="domiciliar" /> <span>Domiciliar</span>
-						</label>
-					</p>
-					<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
-					<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
-					</form>
-				</div>
+			<div class="valid col s6">
+				<label>SALARIO:</label>
+				<input type="text" name="salario" th:field="*{salario}">
+				<span></span>
+			</div>
+		
+		<div class="col s12">
+			<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
+			<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
+		</div>
+		
+		</form>
+		</div>
 
     <div class="tbl-persons">
     <table class="striped">
       <thead>
         <tr>
           <th scope="col">ID:</th>
-          <th scope="col">Numero</th>
-          <th scope="col">Tipo:</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Salario:</th>
           <th scope="col">Excluir:</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr th:each="telefone : ${telefones}">
-          <td th:text="${telefone.id}"></td>
-          <td th:text="${telefone.numero}"></td>
-          <td th:text="${telefone.tipo}"></td>
-          <td><a th:href="@{/telefone/excluir/{foneid}(foneid=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
+        <tr th:each="p : ${profissoes}">
+          <td th:text="${p.id}"></td>
+          <td th:text="${p.nomeProfissoa}"></td>
+          <td th:text="${p.salario}"></td>
+          <td><a th:href="@{/profissoes/edit/{profissaoId}(profissaoId=${p.id})}"><i class="small material-icons" title="excluir">edit</i></a></td>
         </tr>
       </tbody>
     </table>
@@ -64,7 +67,6 @@ xmlns:th="http://www.thymeleaf.org">
 </div>
  
   
-   <script type="text/javascript" src="/js/scriptTelefone.js"></script>
   <script type="text/javascript" src="/js/scripit.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
