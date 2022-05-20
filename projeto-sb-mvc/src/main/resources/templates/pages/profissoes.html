@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+  <header th:insert="fragments/header :: header"></header>
+  <head><link rel="stylesheet" href="/css/stylebase.css"></head>
+  
+  <div class="div-main">
+    <div class="div-submain">
+    <div class="form-group">
+      
+       <div class="form-group">
+       <form th:action="" method="post" id="formFone">
+       		<label>Numero:</label>
+       		<div id="validate01">
+       			<input type="text" name="numero" placeholder="(00) 00000-0000"  id="foneNumber" maxlength="11">
+       			<span id="validateMsg01"></span>
+			</div>
+			
+       		<label>Tipo:</label>
+       		
+					<p>
+						<label> 
+							<input name="tipo" type="radio" value="pessoal" checked /> <span>Pessoal</span>
+						</label>
+					</p>
+					<p>
+						<label> 
+							<input name="tipo" type="radio" value="domiciliar" /> <span>Domiciliar</span>
+						</label>
+					</p>
+					<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
+					<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
+					</form>
+				</div>
+
+    <div class="tbl-persons">
+    <table class="striped">
+      <thead>
+        <tr>
+          <th scope="col">ID:</th>
+          <th scope="col">Numero</th>
+          <th scope="col">Tipo:</th>
+          <th scope="col">Excluir:</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="telefone : ${telefones}">
+          <td th:text="${telefone.id}"></td>
+          <td th:text="${telefone.numero}"></td>
+          <td th:text="${telefone.tipo}"></td>
+          <td><a th:href="@{/telefone/excluir/{foneid}(foneid=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+</div>
+ 
+  
+   <script type="text/javascript" src="/js/scriptTelefone.js"></script>
+  <script type="text/javascript" src="/js/scripit.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
