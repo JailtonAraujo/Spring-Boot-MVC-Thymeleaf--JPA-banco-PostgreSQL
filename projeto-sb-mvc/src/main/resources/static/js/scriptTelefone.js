@@ -7,17 +7,18 @@ document.querySelector('#formFone').addEventListener('submit',(e)=>{
 	
 	foneNumber = inputfone.value.replace(/\D/g,'');
 	
-	if(foneNumber === null || foneNumber.trim() === ''){
-		document.querySelector('#validateMsg01').textContent = '*Numero Obrigatorio!'
-		document.querySelector('#validateMsg01').style.color ='red';
-	}else if(regExp.test(foneNumber) != true ){
-		document.querySelector('#validateMsg01').textContent = '*Numero Inválido!'
-		document.querySelector('#validateMsg01').style.color ='red';
-	}else{
+	if(regExp.test(foneNumber) == true){
 		document.querySelector('#formFone').submit();
+	}else{
+		document.querySelector('.valid > span').textContent = 'Numero de Telefone inválido';
+		document.querySelector('.valid > span').style.color = 'red';
 	}
 	
+	
+	
 })
+
+
 
 document.querySelector('#foneNumber').addEventListener('keypress', (e)=>{
 	let fone = document.querySelector('#foneNumber');

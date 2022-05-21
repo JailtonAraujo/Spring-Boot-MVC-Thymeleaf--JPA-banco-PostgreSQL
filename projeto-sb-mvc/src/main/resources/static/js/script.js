@@ -10,6 +10,12 @@ $(document).ready(function () {
         $('.modal').modal();
       });
       
+		$(document).ready(function() {
+			$('.datepicker').datepicker({
+				format: 'yyyy-mm-dd'
+			});
+		});
+      
       
     document.querySelector('.formValidate').addEventListener('submit',(e)=>{
 	e.preventDefault();
@@ -25,8 +31,12 @@ $(document).ready(function () {
 		 
 		 if(elementValue === null || elementValue.trim() === '' || elementValue === '0'){
 			span.textContent = '*Campo Obrigatorio';
+			span.style.color = 'red';
 			valid = false;
 			break;
+		}else{
+			span.textContent = 'Ok';
+			span.style.color = 'green';
 		}	
 	}	
 		if(valid == true){

@@ -28,16 +28,24 @@ html, body{
 }
 
 .btns a{
-	margin-left: 353px;
+	margin-left: 300px;
+	color: black;
+	font-weight: bold;
+	font-size: 15pt; 
+}
+
+.btns a:hover{
+	text-shadow: 1px 1px #80ffff;
 }
 
 .btns button{
-	width: 100px;
+	width: 150px;
 	height: 30px;
 	background: none;
 	border: 2px solid black;
 	border-radius: 15px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .btns button:hover{
@@ -50,11 +58,49 @@ label {
 	color: black;
 	text-transform: uppercase;
 	font-weight: bold;
+	font-size: 10pt;
 }
 
 input:focus {
 	background-color: black; 
 }
 
+
+@media (max-width: 600px){
+	.content-main{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.btns button {
+		width: 100%;
+    	margin: 40px 0px 40px 0px;
+    	height: 60px;
+    	font-size: xx-large;
+    	text-transform: uppercase;
+    	letter-spacing: 3px;
+	}
+	
+	.field-form{
+		width: 100%;
+    	height: 100%;
+    	border: none;
+	}
+	
+	.btns{
+		text-align: center;
+	}
+	
+	.btns a{
+		width:100%;
+		margin: 0;
+		font-size: 20pt;
+		
+	}
+	
+	legend {
+		display: none;	
+	}
+}
 
 

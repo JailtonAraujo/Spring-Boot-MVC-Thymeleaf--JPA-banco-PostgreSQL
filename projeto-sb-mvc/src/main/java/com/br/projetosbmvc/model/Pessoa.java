@@ -1,14 +1,15 @@
 package com.br.projetosbmvc.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+@SuppressWarnings("deprecation")
 @Entity
 public class Pessoa implements Serializable {
 
@@ -53,6 +58,13 @@ public class Pessoa implements Serializable {
 	@JoinColumn(name = "profissao_id")
 	@org.hibernate.annotations.ForeignKey(name = "fk_pessoa_profissao")
 	private Profissao profissao = new Profissao();
+
+	@Enumerated(EnumType.STRING)
+	private Cargo cargo;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 
 	public Pessoa() {
 	}
@@ -133,6 +145,21 @@ public class Pessoa implements Serializable {
 
 	public void setProfissao(Profissao profissao) {
 		this.profissao = profissao;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+	
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	 public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
 	@Override

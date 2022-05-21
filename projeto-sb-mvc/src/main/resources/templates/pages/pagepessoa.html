@@ -17,9 +17,9 @@
 	    <div th:each="m : ${msg}">
 	    	<span th:text="${m}"></span>
 	    </div>
-      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="row">
+      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row">
       
-      	<div class="col s12">
+      	<div class="col s6">
         <label>ID:</label>
         <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
         </div>
@@ -49,17 +49,24 @@
        	<div class="col s6">
 	       <label>SEXO:</label>
 		  <select class="browser-default" th:field="*{sexo}">
-		    <option value="" disabled selected>Choose your option</option>
 		    <option value="FEMININO">Feminino</option>
 		    <option value="MASCULINO">Masculino</option>
 		  </select>
 		</div>
+		
+		<div class="col s6">
+	       <label>CARGO:</label>
+		  <select class="browser-default" th:field="*{cargo}">
+		    <option th:each="c : ${T(com.br.projetosbmvc.model.Cargo).values()}" th:value="${c}" th:text="${c}"></option>
+		  </select>
+		</div>
+		
         
         <input type="text" hidden="hidden" name="endereciId" th:field="*{endereco.id}">
 
         <div id="div-cep" class="valid col s12">
         	<label>CEP:</label>
-          <input type="text" name="cep" class="validate" onblur="buscarViaCep();" th:field="*{endereco.cep}" maxlength="8">
+          <input type="number" name="cep" class="validate" onblur="buscarViaCep();" th:field="*{endereco.cep}" maxlength="8">
           <span id="msgValid" class="msgValid"></span>
         </div>
 
@@ -101,6 +108,11 @@
 		  </select>
 		   <a class="btn-floating waves-effect waves-light red" th:href="@{/profissoes/}"><i class="material-icons">add</i></a>
 		   </div>
+		</div>
+		
+		<div class="col s12">
+			<label>DATA DE NASCIMENTO:</label>
+			<input type="text" class="datepicker" th:field="*{dataNascimento}" name="dataNascimento">
 		</div>
     
       

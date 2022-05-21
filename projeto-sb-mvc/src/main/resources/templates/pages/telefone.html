@@ -22,9 +22,9 @@ xmlns:th="http://www.thymeleaf.org">
        <div class="form-group">
        <form th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" id="formFone">
        		<label>Numero:</label>
-       		<div id="validate01">
+       		<div class="valid" >
        			<input type="text" name="numero" placeholder="(00) 00000-0000"  id="foneNumber" maxlength="11">
-       			<span id="validateMsg01"></span>
+       			<span></span>
 			</div>
 			
        		<label>Tipo:</label>
@@ -71,7 +71,7 @@ xmlns:th="http://www.thymeleaf.org">
  
   
    <script type="text/javascript" src="/js/scriptTelefone.js"></script>
-  <script type="text/javascript" src="/js/scripit.js"></script>
+  <<script type="text/javascript" src="/js/script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 

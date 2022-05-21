@@ -80,20 +80,6 @@ public class PessoaController implements Serializable{
 		return modelAndView;
 	}
 	
-	/*
-	@GetMapping(value = "/listarpessoas")
-	public ModelAndView pessoas() {
-		
-		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-		
-		List<Pessoa> listPessoas = pessoaRepository.findAll();
-		modelAndView.addObject("pessoas", listPessoas);
-		modelAndView.addObject("pessoaobj", new Pessoa());
-		
-		return modelAndView;
-	}
-	*/
-	
 	@GetMapping(value = "/editarpessoa/{idpessoa}")
 	public ModelAndView editar(@PathVariable("idpessoa") String idpessoa) {
 		
@@ -101,6 +87,7 @@ public class PessoaController implements Serializable{
 		Optional<Pessoa> pessoa = pessoaRepository.findById(Long.parseLong(idpessoa));
 		modelAndView.addObject("pessoaobj", pessoa.get());
 		modelAndView.addObject("pessoas", pessoaRepository.findAll());
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}
@@ -112,6 +99,8 @@ public class PessoaController implements Serializable{
 		ModelAndView andView = new ModelAndView("pages/pagepessoa");
 		andView.addObject("pessoaobj", new Pessoa());
 		andView.addObject("pessoas", pessoaRepository.findByName("",""));
+		andView.addObject("profissoes", profissaoRepository.findAll());
+		
 		return andView;
 	}
 	
@@ -123,6 +112,7 @@ public class PessoaController implements Serializable{
 		
 		modelAndView.addObject("pessoas", pessoaRepository.findByName(nome, sexoPesquisa));
 		modelAndView.addObject("pessoaobj", new Pessoa());
+		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		
 		return modelAndView;
 	}
