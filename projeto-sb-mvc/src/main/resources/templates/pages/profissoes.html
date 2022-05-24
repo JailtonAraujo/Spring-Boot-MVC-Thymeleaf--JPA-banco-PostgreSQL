@@ -14,7 +14,7 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="form-group">
       
        <div class="form-group">
-       <p th:text="${msg}"></p>
+       	<div class="title">CADASTRO DE PROFISSÕES</div>
        <form action="/profissoes/salvar" method="post" id="formProfissao" class="formValidate row" th:object="${profissaoObj}">
        		
        		<div class="col s6">
@@ -37,6 +37,7 @@ xmlns:th="http://www.thymeleaf.org">
 			<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
 			<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
 		</div>
+		 <p th:text="${msg}" class="col s12"></p>
 		
 		</form>
 		</div>

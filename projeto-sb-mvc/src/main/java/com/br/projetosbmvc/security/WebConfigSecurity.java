@@ -25,6 +25,8 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		.disable()/*DESABILITA AS CONFIGURAÇÕES DE MEMORIA PADRÃO*/
 		.authorizeRequests() /*PERMITIR/RESRTINGIR ACESSOS*/
 		.antMatchers(HttpMethod.GET,"/").permitAll() /*PERMITE QUALQUER USUARIO ACESSAR*/
+		.antMatchers("/visitante/cadastrovisitante").permitAll()
+		.antMatchers("/visitante/cadastrar").permitAll()
 		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll() /*PERMITE QUALQUER USUAIRIO*/

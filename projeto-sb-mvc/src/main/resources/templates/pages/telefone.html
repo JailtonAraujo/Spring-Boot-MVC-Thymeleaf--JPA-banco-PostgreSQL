@@ -1,78 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="/fragments/head :: head"></head>
 
 <body>
 
-  <header th:insert="fragments/header :: header"></header>
-  <head><link rel="stylesheet" href="/css/stylebase.css"></head>
-  
-  <div class="div-main">
-    <div class="div-submain">
-    <div class="form-group">
-      <div th:each="p : ${pessoaobj}">
-      		<div class="row">
-      			<p>Nome: <span th:text="${pessoaobj.nome}"></span> </p>
-      			<p>Sobrenome: <span th:text="${pessoaobj.sobrenome}"></span> </p>
-      		</div>
-      </div>
-      
-       <div class="form-group">
-       <form th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" id="formFone">
-       		<label>Numero:</label>
-       		<div class="valid" >
-       			<input type="text" name="numero" placeholder="(00) 00000-0000"  id="foneNumber" maxlength="11">
-       			<span></span>
-			</div>
-			
-       		<label>Tipo:</label>
-       		
+	<header th:insert="fragments/header :: header"></header>
+<head>
+<link rel="stylesheet" href="/css/stylebase.css">
+</head>
+
+<div class="div-main">
+	<div class="div-submain">
+		<div class="form-group">
+			<div class="title">CADASTRO DE TELEFONES</div>
+			<div th:each="p : ${pessoaobj}">
+				<div class="row">
 					<p>
-						<label> 
-							<input name="tipo" type="radio" value="pessoal" checked /> <span>Pessoal</span>
-						</label>
+						Nome: <span th:text="${pessoaobj.nome}"></span>
 					</p>
 					<p>
-						<label> 
-							<input name="tipo" type="radio" value="domiciliar" /> <span>Domiciliar</span>
-						</label>
+						Sobrenome: <span th:text="${pessoaobj.sobrenome}"></span>
 					</p>
-					<button class="btn waves-effect waves-light"  type="submit">Salvar</button>
-					<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
-					</form>
 				</div>
+			</div>
 
-    <div class="tbl-persons">
-    <table class="striped">
-      <thead>
-        <tr>
-          <th scope="col">ID:</th>
-          <th scope="col">Numero</th>
-          <th scope="col">Tipo:</th>
-          <th scope="col">Excluir:</th>
-        </tr>
-      </thead>
+			<div class="form-group">
+				<form
+					th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}"
+					method="post" id="formFone" class="row">
+					<label>Numero:</label>
+					<div class="valid col s12">
+						<input type="text" name="numero" placeholder="(00) 00000-0000"
+							id="foneNumber" maxlength="11"> <span></span>
+					</div>
 
-      <tbody>
-        <tr th:each="telefone : ${telefones}">
-          <td th:text="${telefone.id}"></td>
-          <td th:text="${telefone.numero}"></td>
-          <td th:text="${telefone.tipo}"></td>
-          <td><a th:href="@{/telefone/excluir/{foneid}(foneid=${telefone.id})}"> <i class="small material-icons" title="excluir">delete</i>  </a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+					<div class="col s12">
+						<label>Tipo:</label>
+
+						<p>
+							<label> <input name="tipo" type="radio" value="pessoal"
+								checked /> <span>Pessoal</span>
+							</label>
+						</p>
+						<p>
+							<label> <input name="tipo" type="radio"
+								value="domiciliar" /> <span>Domiciliar</span>
+							</label>
+						</p>
+					</div>
+					<div class="col s12">
+						<button class="btn waves-effect waves-light" type="submit">Salvar</button>
+						<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
+						<p th:text="${msg}" class="col s12"></p>
+					</div>
+				</form>
+			</div>
+
+			<div class="tbl-persons col s12">
+				<table class="striped">
+					<thead>
+						<tr>
+							<th scope="col">ID:</th>
+							<th scope="col">Numero</th>
+							<th scope="col">Tipo:</th>
+							<th scope="col">Excluir:</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="telefone : ${telefones}">
+							<td th:text="${telefone.id}"></td>
+							<td th:text="${telefone.numero}"></td>
+							<td th:text="${telefone.tipo}"></td>
+							<td><a
+								th:href="@{/telefone/excluir/{foneid}(foneid=${telefone.id})}">
+									<i class="small material-icons" title="excluir">delete</i>
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
-  </div>
-</div>
- 
-  
-   <script type="text/javascript" src="/js/scriptTelefone.js"></script>
-  <<script type="text/javascript" src="/js/script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+<script type="text/javascript" src="/js/scriptTelefone.js"></script>
+
+<script type="text/javascript" src="/js/script.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

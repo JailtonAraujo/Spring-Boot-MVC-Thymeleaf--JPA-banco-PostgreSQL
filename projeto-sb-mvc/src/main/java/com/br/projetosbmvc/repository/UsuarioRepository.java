@@ -12,5 +12,5 @@ import com.br.projetosbmvc.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query("select u from Usuario u where u.login = ?1")
-	Usuario findUsuarioByLogin(String login);
+	public Usuario findUsuarioByLogin(String login);
 }

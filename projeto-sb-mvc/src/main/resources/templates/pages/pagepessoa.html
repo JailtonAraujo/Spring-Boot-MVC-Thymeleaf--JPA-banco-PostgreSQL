@@ -14,9 +14,7 @@
   <div class="div-main">
     <div class="div-submain">
     <div class="form-group">
-	    <div th:each="m : ${msg}">
-	    	<span th:text="${m}"></span>
-	    </div>
+    	<div class="title">CADASTRO DE PESSOAS</div>
       <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row">
       
       	<div class="col s6">
@@ -120,6 +118,7 @@
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
         <button class="btn waves-effect waves-light" type="reset">Limpar</button>
        </div>
+       <p th:text="${msg}" class="col s12"></p>
        
       </form>
     </div>
