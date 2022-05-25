@@ -16,28 +16,28 @@
 		<div class="form-group">
 			<div class="title">CADASTRO DE USUARIOS</div>
 			<div class="form-group">
-				<form method="post" id="formUsuario" class="row">
+				<form action="/usuario/salvar" method="post" id="formUsuario" class="row" th:object="${usuarioObj}">
 					
 					<div class="col s12">
 						<label>ID:</label>
-						<input type="text" id="id" name="id" readonly="readonly">
+						<input type="text" id="id" name="id" readonly="readonly" th:field="*{id}">
 					</div>
 					
 					<div class="valid col s12">
 						<label>Nome:</label>
-						<input type="text" name="nome" id="nome"> 
+						<input type="text" name="nome" id="nome" th:field="*{nome}"> 
 						<span></span>
 					</div>
 					
 					<div class="valid col s12">
 						<label>Login:</label>
-						<input type="text" name="login" id="login"> 
+						<input type="text" name="login" id="login" th:field="*{login}"> 
 						<span></span>
 					</div>
 					
 					<div class="valid col s12">
 						<label>Senha:</label>
-						<input type="password" name="senha" id="senha"> 
+						<input type="password" name="senha" id="senha" th:field="*{senha}"> 
 						<span></span>
 					</div>
 
@@ -67,8 +67,8 @@
 							<td th:text="${user.id}"></td>
 							<td th:text="${user.nome}"></td>
 							<td th:text="${user.login}"></td>
-							<td> <a href="#"> <i class="small material-icons" title="excluir">delete</i></a></td>
-							<td> <a href="#"> <i class="small material-icons" title="editar">edit</i></a></td>
+							<td> <a th:href="@{/usuario/deletar/{idUser}(idUser = ${user.id})}"> <i class="small material-icons" title="excluir">delete</i></a></td>
+							<td> <a th:href="@{/usuario/editar/{idUser}(idUser = ${user.id})}"> <i class="small material-icons" title="editar">edit</i></a></td>
 							<td> <a href="#"> <i class="small material-icons" title="funções" >assignment_ind</i> </a> </td>
 						</tr>
 					</tbody>
