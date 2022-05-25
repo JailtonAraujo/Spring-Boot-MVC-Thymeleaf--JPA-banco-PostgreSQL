@@ -6,4 +6,5 @@ import com.br.projetosbmvc.model.UsuariosRole;
 
 public interface UsuariosRoleRepository extends JpaRepository<UsuariosRole, Long>{
 
+	
 }

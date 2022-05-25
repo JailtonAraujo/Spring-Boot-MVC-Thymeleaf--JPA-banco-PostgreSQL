@@ -69,7 +69,7 @@
 							<td th:text="${user.login}"></td>
 							<td> <a th:href="@{/usuario/deletar/{idUser}(idUser = ${user.id})}"> <i class="small material-icons" title="excluir">delete</i></a></td>
 							<td> <a th:href="@{/usuario/editar/{idUser}(idUser = ${user.id})}"> <i class="small material-icons" title="editar">edit</i></a></td>
-							<td> <a href="#"> <i class="small material-icons" title="funções" >assignment_ind</i> </a> </td>
+							<td> <a th:href="@{/funcoes/{idUser}(idUser = ${user.id})}"> <i class="small material-icons" title="funções" >assignment_ind</i> </a> </td>
 						</tr>
 					</tbody>
 				</table>

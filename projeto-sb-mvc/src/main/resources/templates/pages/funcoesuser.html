@@ -15,43 +15,50 @@
 	<div class="div-submain">
 		<div class="form-group">
 			<div class="title">CADASTRO DE FUNÇÕES</div>
-			<div class="row">
-				<div class="col s12">
+			<div class="row" >
+				<div class="col s12" th:each="user : ${usuarioObj}">
 					<p>
-						Nome: <span ></span>
+						Nome: <span th:text="${user.nome}"></span>
 					</p>
 					<p>
-						Login: <span ></span>
+						Login: <span th:text="${user.login}"></span>
 					</p>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<form method="post" id="formFone" class="row">
+				<form th:action="@{/funcoes/adicionar/{userId}(userId=${usuarioObj.id})}" method="post" id="formRole" class="row">
 					
-					<div class="valid col s12">
-					<label>Numero:</label>
-						<input type="text" name="numero" placeholder="(00) 00000-0000"
-							id="foneNumber" maxlength="11"> <span></span>
+					<div class="col s6">
+						<label>Função</label> 
+						<select class="browser-default" th:filed="*{id}" name="id">
+							<option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nomeRole}"></option>
+							
+						</select >
 					</div>
 
-					<div class="col s12">
-						<label>Tipo:</label>
+					<div class="col s6">
+						<label>Usuario ADMIN?</label>
+							<div style="display: flex">
+							<p style="margin-right: 8px;">
+								<label> <input name="isAdmin" type="radio" value="1"
+									 /> <span>SIM</span>
+								</label>
+							</p>
+							<p>
+								<label> <input name="isAdmin" type="radio" value="0"
+									 checked="checked"/> <span>NÃO</span>
+								</label>
+							</p>
+							</div>
 
-						<p>
-							<label> <input name="tipo" type="radio" value="pessoal"
-								checked /> <span>Pessoal</span>
-							</label>
-						</p>
-						<p>
-							<label> <input name="tipo" type="radio"
-								value="domiciliar" /> <span>Domiciliar</span>
-							</label>
-						</p>
-					</div>
-					<div class="col s12">
-						<button class="btn waves-effect waves-light" type="submit">Salvar</button>
-						<a href="/cadastropessoa" class="btn waves-effect waves-light">Voltar</a>
+						</div>
+
+					
+
+					<div class="col s12" style="margin-top:10px;">
+						<button class="btn waves-effect waves-light" type="submit">Adicionar</button>
+						<a href="/usuario/" class="btn waves-effect waves-light">Voltar</a>
 						<p th:text="${msg}" class="col s12"></p>
 					</div>
 				</form>
@@ -62,17 +69,15 @@
 					<thead>
 						<tr>
 							<th scope="col">ID:</th>
-							<th scope="col">Numero</th>
-							<th scope="col">Tipo:</th>
-							<th scope="col">Excluir:</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Remover:</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr >
-							<td ></td>
-							<td ></td>
-							<td ></td>
+						<tr th:each="role : ${rolesUsuario}" >
+							<td th:text="${role.id}"></td>
+							<td th:text="${role.nomeRole}"></td>
 							<td><a href="#"><i class="small material-icons" title="excluir">delete</i></a></td>
 						</tr>
 					</tbody>
@@ -82,8 +87,6 @@
 	</div>
 </div>
 
-
-<script type="text/javascript" src="/js/scriptTelefone.js"></script>
 
 <script type="text/javascript" src="/js/script.js"></script>
 <script
