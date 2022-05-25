@@ -15,8 +15,8 @@
 	<div class="div-submain">
 		<div class="form-group">
 			<div class="title">CADASTRO DE TELEFONES</div>
-			<div th:each="p : ${pessoaobj}">
-				<div class="row">
+			<div th:each="p : ${pessoaobj}" class="row">
+				<div class="col s12">
 					<p>
 						Nome: <span th:text="${pessoaobj.nome}"></span>
 					</p>
@@ -30,8 +30,9 @@
 				<form
 					th:action="@{/telefone/salvar/{pessoaid}(pessoaid=${pessoaobj.id})}"
 					method="post" id="formFone" class="row">
-					<label>Numero:</label>
+					
 					<div class="valid col s12">
+					<label>Numero:</label>
 						<input type="text" name="numero" placeholder="(00) 00000-0000"
 							id="foneNumber" maxlength="11"> <span></span>
 					</div>

@@ -1,20 +1,22 @@
-$(document).ready(function () {
-      $('.sidenav').sidenav();
-    });
-    
-    $(document).ready(function() {
-        M.updateTextFields();
-      });
-    
-    $(document).ready(function(){
-        $('.modal').modal();
-      });
-      
-		$(document).ready(function() {
-			$('.datepicker').datepicker({
-				format: 'yyyy-mm-dd'
-			});
-		});
+$(document).ready(function() {
+	$('.sidenav').sidenav();
+});
+
+$(document).ready(function() {
+	M.updateTextFields();
+});
+
+$(document).ready(function() {
+	$('.modal').modal();
+});
+
+$(document).ready(function() {
+	$('.datepicker').datepicker({
+		format: 'yyyy-mm-dd'
+	});
+});
+
+
       
       
     document.querySelector('.formValidate').addEventListener('submit',(e)=>{

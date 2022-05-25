@@ -93,6 +93,10 @@ footer{
   	width: 100%;
 }
 
+nav .brand-logo{
+	margin-left: 10px;
+}
+
 @media (max-width: 1080px){
 	
 	.row .col.s6{width:100%;}
