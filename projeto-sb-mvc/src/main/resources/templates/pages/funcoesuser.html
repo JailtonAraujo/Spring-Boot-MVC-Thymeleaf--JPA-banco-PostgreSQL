@@ -14,7 +14,7 @@
 <div class="div-main">
 	<div class="div-submain">
 		<div class="form-group">
-			<div class="title">CADASTRO DE FUNÇÕES</div>
+			<div class="title">ASSOCIAÇÃO DE FUNÇÕES À USUARIO</div>
 			<div class="row" >
 				<div class="col s12" th:each="user : ${usuarioObj}">
 					<p>
@@ -30,31 +30,14 @@
 				<form th:action="@{/funcoes/adicionar/{userId}(userId=${usuarioObj.id})}" method="post" id="formRole" class="row">
 					
 					<div class="col s6">
-						<label>Função</label> 
+						<label>Função</label>
+						<div class="div-combo-with-btn"> 
 						<select class="browser-default" th:filed="*{id}" name="id">
 							<option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nomeRole}"></option>
-							
 						</select >
-					</div>
-
-					<div class="col s6">
-						<label>Usuario ADMIN?</label>
-							<div style="display: flex">
-							<p style="margin-right: 8px;">
-								<label> <input name="isAdmin" type="radio" value="1"
-									 /> <span>SIM</span>
-								</label>
-							</p>
-							<p>
-								<label> <input name="isAdmin" type="radio" value="0"
-									 checked="checked"/> <span>NÃO</span>
-								</label>
-							</p>
-							</div>
-
+						<a class="btn-floating waves-effect waves-light red" th:href="@{/profissoes/}"><i class="material-icons" title="Nova Função">add</i></a>
 						</div>
-
-					
+					</div>
 
 					<div class="col s12" style="margin-top:10px;">
 						<button class="btn waves-effect waves-light" type="submit">Adicionar</button>

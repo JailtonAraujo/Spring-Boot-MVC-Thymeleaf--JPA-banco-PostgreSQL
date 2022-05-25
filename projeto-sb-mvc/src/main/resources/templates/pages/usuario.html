@@ -40,6 +40,23 @@
 						<input type="password" name="senha" id="senha" th:field="*{senha}"> 
 						<span></span>
 					</div>
+					
+					<div class="col s6">
+						<label>Usuario ADMIN?</label>
+							<div style="display: flex">
+							<p style="margin-right: 8px;">
+								<label> <input name="isAdmin" type="radio" value="1"
+									 /> <span>SIM</span>
+								</label>
+							</p>
+							<p>
+								<label> <input name="isAdmin" type="radio" value="0"
+									 checked="checked"/> <span>NÃO</span>
+								</label>
+							</p>
+							</div>
+
+						</div>
 
 					<div class="col s12">
 						<button class="btn waves-effect waves-light" type="submit">Salvar</button>

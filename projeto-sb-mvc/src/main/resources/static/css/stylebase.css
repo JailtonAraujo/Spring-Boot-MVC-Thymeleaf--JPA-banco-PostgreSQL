@@ -73,12 +73,12 @@ body{
     color: red;
 }
 
-.div-combo-profissao{
+.div-combo-with-btn{
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 }
-.div-combo-profissao a{
+.div-combo-with-btn a{
 	position: absolute;
 }
 

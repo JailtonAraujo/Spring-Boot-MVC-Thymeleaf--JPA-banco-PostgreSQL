@@ -35,7 +35,7 @@ public class FuncoesController {
 	}
 	
 	@PostMapping("/adicionar/{userId}")
-	public ModelAndView adicionar (@PathVariable(name="userId") Long userId, Role role, @RequestParam(name = "isAdmin") int isAdmin) {
+	public ModelAndView adicionar (@PathVariable(name="userId") Long userId, Role role) {
 		ModelAndView modelAndView = new ModelAndView("pages/funcoesuser");
 		Usuario usuario = usuarioRepository.findById(userId).get();
 		modelAndView.addObject("usuarioObj", usuario);

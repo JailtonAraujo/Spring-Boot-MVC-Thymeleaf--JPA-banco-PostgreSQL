@@ -100,11 +100,11 @@
         
         <div class="col s6 div-contente-profisao">
 	       <label>PROFISSÃO:</label>
-	       <div class="div-combo-profissao">
+	       <div class="div-combo-with-btn">
 		  <select class="browser-default" th:field="*{profissao.id}">
 		  	<option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nomeProfissoa}">
 		  </select>
-		   <a class="btn-floating waves-effect waves-light red" th:href="@{/profissoes/}"><i class="material-icons">add</i></a>
+		   <a class="btn-floating waves-effect waves-light red" th:href="@{/profissoes/}"><i class="material-icons" >add</i></a>
 		   </div>
 		</div>
 		
