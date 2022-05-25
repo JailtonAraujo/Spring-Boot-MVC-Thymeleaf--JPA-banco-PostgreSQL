@@ -33,6 +33,14 @@ public class Usuario implements UserDetails {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuarios_role", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role"))
 	private List<Role> roles;
+	
+	public Usuario() {}
+	
+	public Usuario (Long id, String nome, String login) {
+		this.id = id;
+		this.nome = nome;
+		this.login = login;
+	}
 
 	public Long getId() {
 		return id;
