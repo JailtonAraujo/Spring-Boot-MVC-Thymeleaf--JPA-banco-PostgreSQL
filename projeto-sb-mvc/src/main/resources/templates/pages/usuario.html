@@ -23,10 +23,15 @@
 						<input type="text" id="id" name="id" readonly="readonly" th:field="*{id}">
 					</div>
 					
-					<div class="valid col s12">
+					<div class="valid col s6">
 						<label>Nome:</label>
 						<input type="text" name="nome" id="nome" th:field="*{nome}"> 
 						<span></span>
+					</div>
+					
+					<div class="col s6">
+						<label>Foto Perfil:</label>
+						<input type="file" id="fotoUser" placeholder="Foto usuario"> 
 					</div>
 					
 					<div class="valid col s12">
