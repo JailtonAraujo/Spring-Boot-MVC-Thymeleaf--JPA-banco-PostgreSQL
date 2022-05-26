@@ -27,7 +27,8 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET,"/").permitAll() /*PERMITE QUALQUER USUARIO ACESSAR*/
 		.antMatchers("/visitante/cadastrovisitante").permitAll()
 		.antMatchers("/visitante/cadastrar").permitAll()
-		.antMatchers(HttpMethod.GET).hasAnyRole("ADMIN")
+		.antMatchers(HttpMethod.GET,"/usuario/**").hasAnyRole("ADMIN")
+		.antMatchers("/funcoes/**").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll() /*PERMITE QUALQUER USUAIRIO*/
 		.defaultSuccessUrl("/cadastropessoa")

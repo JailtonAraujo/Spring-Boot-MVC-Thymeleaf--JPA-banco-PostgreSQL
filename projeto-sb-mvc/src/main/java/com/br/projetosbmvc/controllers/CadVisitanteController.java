@@ -39,7 +39,7 @@ public class CadVisitanteController {
 		
 		try {
 			UsuariosRole usuarioRole = new UsuariosRole();
-			usuarioRole.getRole().setId(1L);
+			usuarioRole.getRole().setId(3L);
 			usuarioRole.setUsuario(usuarioRepository.save(usuario));
 			roleRepository.save(usuarioRole);
 		} catch (Exception e) {

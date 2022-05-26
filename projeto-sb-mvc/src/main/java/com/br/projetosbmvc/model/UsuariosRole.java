@@ -26,16 +26,15 @@ public class UsuariosRole implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
+
 	@JoinColumn(name = "usuario_id")
 	@ForeignKey(name = "fkopcaagbsri62yny3hlxui91vb")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Usuario usuario = new Usuario();
 
 	@JoinColumn(name = "role_id")
 	@ForeignKey(name = "fkb4lgjns7jnrvtimlocbhgu9eu")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Role role = new Role();
 
 	public Usuario getUsuario() {
@@ -52,6 +51,14 @@ public class UsuariosRole implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
