@@ -31,8 +31,13 @@ public class UsuarioController {
 	@PostMapping("**/salvar")
 	public ModelAndView salvar(Usuario usuario) {
 		ModelAndView modelAndView = new ModelAndView("pages/usuario");
-		usuarioRepository.save(usuario);
-		modelAndView.addObject("msg", "Salvo com sucesso!");
+		
+		if(!usuarioRepository.alreadExistsByLogin(usuario.getLogin())) {
+			usuarioRepository.save(usuario);
+			modelAndView.addObject("msg", "Salvo com sucesso!");
+		}else {
+			modelAndView.addObject("msg", "Nome de usuario ja existente, tente outro!");
+		}
 		modelAndView.addObject("usuarios", usuarioRepository.findUsuarioInit());
 		modelAndView.addObject("usuarioObj", new Usuario());
 

@@ -18,4 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Query("select new com.br.projetosbmvc.model.Usuario(u.id, u.nome, u.login) from Usuario u")
 	public List<Usuario> findUsuarioInit();
+	
+	@Query(value = "select count(1) > 0 from usuario where login = ?1", nativeQuery = true)
+	public boolean alreadExistsByLogin(String login);
 }
