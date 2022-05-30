@@ -15,7 +15,7 @@
     <div class="div-submain">
     <div class="form-group">
     	<div class="title">CADASTRO DE PESSOAS</div>
-      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row">
+      <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row" enctype="multipart/form-data">
       
       	<div class="col s6">
         <label>ID:</label>
@@ -34,6 +34,11 @@
         <input type="text" name="sobrenome" th:field="*{sobrenome}" class="validate" >
          <span id="msgValid" class="msgValid"></span>
         </div>
+        
+		<div class="col s12">
+			<label>Foto Perfil:</label>
+			<input type="file" id="fotoUser" name="fotoPerfil" placeholder="Foto usuario">
+		</div>
         
         
         <div id="validate" class="valid col s6">

@@ -1,5 +1,6 @@
 package com.br.projetosbmvc.controllers;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.repository.PessoaRepository;
 import com.br.projetosbmvc.repository.ProfissaoRepository;
@@ -51,8 +54,8 @@ public class PessoaController implements Serializable{
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
+	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa", consumes = {"multipart/form-data"})
+	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult, final MultipartFile fotoPerfil) throws IOException {
 		
 		if(bindingResult.hasErrors()) {
 
@@ -70,7 +73,11 @@ public class PessoaController implements Serializable{
 			return modelAndView;
 		}
 		
-		pessoa.getEndereco().setPessoa(pessoa);
+		FotoPessoa fotoPessoa = new FotoPessoa();
+		fotoPessoa.setFotoUser(fotoPerfil.getBytes());
+		fotoPessoa.setNameImage(fotoPerfil.getOriginalFilename().split("\\.")[0]);
+		fotoPessoa.setTypeImage(fotoPerfil.getOriginalFilename().split("\\.")[1]);
+		pessoa.setFotoPessoa(fotoPessoa);
 		
 		pessoaRepository.save(pessoa);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Usuario;
 
 @Repository

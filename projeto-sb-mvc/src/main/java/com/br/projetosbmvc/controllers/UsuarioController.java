@@ -28,8 +28,8 @@ public class UsuarioController {
 		return modelAndView;
 	}
 
-	@PostMapping("**/salvar")
-	public ModelAndView salvar(Usuario usuario) {
+	@PostMapping(value="**/salvar")
+	public ModelAndView salvar(Usuario usuario ) {
 		ModelAndView modelAndView = new ModelAndView("pages/usuario");
 		
 		if(!usuarioRepository.alreadExistsByLogin(usuario.getLogin())) {

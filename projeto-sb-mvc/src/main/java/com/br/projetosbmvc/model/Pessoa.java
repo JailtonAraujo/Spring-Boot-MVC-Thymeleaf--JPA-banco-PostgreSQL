@@ -61,10 +61,13 @@ public class Pessoa implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private FotoPessoa fotoPessoa;
 
 	public Pessoa() {
 	}
@@ -154,12 +157,21 @@ public class Pessoa implements Serializable {
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-	
+
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	 public Date getDataNascimento() {
+
+	public Date getDataNascimento() {
 		return dataNascimento;
+	}
+
+	public FotoPessoa getFotoPessoa() {
+		return fotoPessoa;
+	}
+
+	public void setFotoPessoa(FotoPessoa fotoPessoa) {
+		this.fotoPessoa = fotoPessoa;
 	}
 
 	@Override
