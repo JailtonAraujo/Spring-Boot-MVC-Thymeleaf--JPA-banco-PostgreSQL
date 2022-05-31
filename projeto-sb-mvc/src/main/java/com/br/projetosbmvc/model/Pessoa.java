@@ -66,7 +66,7 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
-	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private FotoPessoa fotoPessoa;
 
 	public Pessoa() {
@@ -84,6 +84,10 @@ public class Pessoa implements Serializable {
 		this.sobrenome = sobrenome;
 		this.endereco.setCidade(cidade);
 		this.endereco.setUf(uf);
+	}
+
+	public Pessoa(FotoPessoa fotoPessoa) {
+		this.fotoPessoa = fotoPessoa;
 	}
 
 	public Long getId() {

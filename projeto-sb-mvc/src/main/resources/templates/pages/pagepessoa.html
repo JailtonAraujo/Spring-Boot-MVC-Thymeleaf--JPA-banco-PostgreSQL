@@ -18,12 +18,13 @@
       <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row" enctype="multipart/form-data">
       
       	<div class="col s6 imgContainer">
-        	<img th:if="${pessoaobj.id < 0} " alt="Image" src="/img/user.png" id="imgPerfil">
+        	<img th:if="${pessoaobj.fotoPessoa == null} " alt="Image" src="/img/user.png" id="imgPerfil">
         	<img th:if="${pessoaobj.fotoPessoa != null} " alt="Image" th:src="${pessoaobj.fotoPessoa.fotoBase64}" id="imgPerfil">
 		</div>
 		
 		<input type="file" id="fotoPerfil" name="fotoPerfil" placeholder="Foto usuario" accept="image/*">
-      
+		<input type="text" id = "idFoto" th:field="*{fotoPessoa.id}" hidden="hidden">  
+		  
       	<div class="col s6">
         <label>ID:</label>
         <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
@@ -124,6 +125,7 @@
      	<div class="col s12">
         <button class="btn waves-effect waves-light" type="submit">salvar</button>
         <button class="btn waves-effect waves-light" type="reset">Limpar</button>
+        <a class="btn waves-effect waves-light" href="/cadastropessoa">Cancelar</a>
        </div>
        <p th:text="${msg}" class="col s12"></p>
        

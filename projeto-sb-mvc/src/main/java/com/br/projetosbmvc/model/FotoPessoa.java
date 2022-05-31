@@ -35,12 +35,23 @@ public class FotoPessoa implements Serializable {
 	private byte[] fotoUser;
 	
 	@Transient
-	private String fotoBase64;
+	private String fotoBase64 = "vazia";
 
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_fotopessoa_pessoa")
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Pessoa pessoa;
+	
+	public FotoPessoa() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public FotoPessoa(Long id, String nameImage, String typeImage, byte[] fotoUser) {
+		this.id = id;
+		this.nameImage = nameImage;
+		this.typeImage = typeImage;
+		this.fotoUser = fotoUser;
+	}
 
 	public Long getId() {
 		return id;
