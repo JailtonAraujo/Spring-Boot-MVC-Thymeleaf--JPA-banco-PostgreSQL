@@ -52,3 +52,20 @@ function limparInputs(){
 	document.querySelector('#uf').value='';
 }
 
+
+
+let imgPefil = document.querySelector('#imgPerfil');
+let fotoPerfil = document.querySelector('#fotoPerfil');
+
+imgPefil.addEventListener('click', (e)=>{
+	fotoPerfil.click();
+})
+
+fotoPerfil.addEventListener('change', (e) =>{
+	let reader = new FileReader();
+	reader.onload = () =>{
+		imgPefil.src = reader.result;
+	}
+	reader.readAsDataURL(fotoPerfil.files[0]);
+})
+

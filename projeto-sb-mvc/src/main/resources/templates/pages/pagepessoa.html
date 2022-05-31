@@ -17,11 +17,17 @@
     	<div class="title">CADASTRO DE PESSOAS</div>
       <form action="salvarpessoa" method="post" th:object="${pessoaobj}" id="formPerson" class="formValidate row" enctype="multipart/form-data">
       
+      	<div class="col s6 imgContainer">
+        	<img th:if="${pessoaobj.id < 0} " alt="Image" src="/img/user.png" id="imgPerfil">
+        	<img th:if="${pessoaobj.fotoPessoa != null} " alt="Image" th:src="${pessoaobj.fotoPessoa.fotoBase64}" id="imgPerfil">
+		</div>
+		
+		<input type="file" id="fotoPerfil" name="fotoPerfil" placeholder="Foto usuario" accept="image/*">
+      
       	<div class="col s6">
         <label>ID:</label>
         <input name="id" th:field="*{id}" readonly="readonly" id="idPerson">
         </div>
-        
         
         <div id="validate" class="valid col s6">
         <label for="">NOME:</label>
@@ -35,10 +41,6 @@
          <span id="msgValid" class="msgValid"></span>
         </div>
         
-		<div class="col s12">
-			<label>Foto Perfil:</label>
-			<input type="file" id="fotoUser" name="fotoPerfil" placeholder="Foto usuario">
-		</div>
         
         
         <div id="validate" class="valid col s6">

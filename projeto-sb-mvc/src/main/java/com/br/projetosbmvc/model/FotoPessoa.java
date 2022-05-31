@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -32,6 +33,9 @@ public class FotoPessoa implements Serializable {
 
 	@Lob
 	private byte[] fotoUser;
+	
+	@Transient
+	private String fotoBase64;
 
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_fotopessoa_pessoa")
@@ -77,5 +81,15 @@ public class FotoPessoa implements Serializable {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	public String getFotoBase64() {
+		return fotoBase64;
+	}
+
+	public void setFotoBase64(String fotoBase64) {
+		this.fotoBase64 = fotoBase64;
+	}
+	
+	
 
 }

@@ -66,7 +66,7 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
-	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.REMOVE)
 	private FotoPessoa fotoPessoa;
 
 	public Pessoa() {

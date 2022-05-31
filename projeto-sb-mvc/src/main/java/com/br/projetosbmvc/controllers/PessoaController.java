@@ -3,6 +3,7 @@ package com.br.projetosbmvc.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,8 +76,10 @@ public class PessoaController implements Serializable{
 		
 		FotoPessoa fotoPessoa = new FotoPessoa();
 		fotoPessoa.setFotoUser(fotoPerfil.getBytes());
-		fotoPessoa.setNameImage(fotoPerfil.getOriginalFilename().split("\\.")[0]);
-		fotoPessoa.setTypeImage(fotoPerfil.getOriginalFilename().split("\\.")[1]);
+		fotoPessoa.setNameImage(fotoPerfil.getOriginalFilename());
+		fotoPessoa.setTypeImage(fotoPerfil.getContentType());
+		fotoPessoa.setPessoa(pessoa);
+		pessoa.getEndereco().setPessoa(pessoa);
 		pessoa.setFotoPessoa(fotoPessoa);
 		
 		pessoaRepository.save(pessoa);
@@ -92,9 +95,17 @@ public class PessoaController implements Serializable{
 		
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		Optional<Pessoa> pessoa = pessoaRepository.findById(Long.parseLong(idpessoa));
+		
+		if(pessoa.get().getFotoPessoa().getFotoUser().length > 0) {
+		String fotoBase64 = Base64.getEncoder().encodeToString(pessoa.get().getFotoPessoa().getFotoUser());
+		fotoBase64 = "data:image/"+pessoa.get().getFotoPessoa().getTypeImage()+";base64,"+fotoBase64;
+		pessoa.get().getFotoPessoa().setFotoBase64(fotoBase64);
+		}
+		
 		modelAndView.addObject("pessoaobj", pessoa.get());
 		modelAndView.addObject("pessoas", pessoaRepository.findAll());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
+		
 		
 		return modelAndView;
 	}
