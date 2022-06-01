@@ -22,4 +22,8 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 	
 	@Query("select new com.br.projetosbmvc.model.FotoPessoa (f.id, f.nameImage, f.typeImage, f.fotoUser) from FotoPessoa f where f.pessoa.id = ?1")
 	public FotoPessoa findFoto(Long userId);
+	
+	
+	
+	
 }

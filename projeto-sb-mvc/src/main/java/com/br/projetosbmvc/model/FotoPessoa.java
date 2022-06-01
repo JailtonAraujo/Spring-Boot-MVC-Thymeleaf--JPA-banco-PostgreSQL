@@ -39,7 +39,7 @@ public class FotoPessoa implements Serializable {
 
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_fotopessoa_pessoa")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
 	private Pessoa pessoa;
 	
 	public FotoPessoa() {

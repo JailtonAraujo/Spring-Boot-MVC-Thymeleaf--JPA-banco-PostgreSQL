@@ -7,11 +7,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -26,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Pessoa;
+import com.br.projetosbmvc.repository.OperattionsRepository;
 import com.br.projetosbmvc.repository.PessoaRepository;
 import com.br.projetosbmvc.repository.ProfissaoRepository;
 import com.br.projetosbmvc.repository.UsuarioRepository;
@@ -41,6 +45,9 @@ public class PessoaController implements Serializable {
 
 	@Autowired
 	private ReportUtil reportUtil;
+	
+	@Autowired
+	private OperattionsRepository operattionsRepository;
 
 	@Autowired
 	private ProfissaoRepository profissaoRepository;
@@ -49,7 +56,7 @@ public class PessoaController implements Serializable {
 	public ModelAndView init() {
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findByName("", ""));
+		modelAndView.addObject("pessoas", operattionsRepository.findPagination());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 		return modelAndView;

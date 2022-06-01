@@ -35,7 +35,7 @@ public class Endereco implements Serializable {
 
 	private int numero;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_endereco_pessoa")
 	private Pessoa pessoa;
