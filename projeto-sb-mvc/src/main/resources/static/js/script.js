@@ -46,3 +46,7 @@ $(document).ready(function() {
 		}
 	
 })
+
+function loading(){
+	document.querySelector('#loading').style.display = 'none';
+}

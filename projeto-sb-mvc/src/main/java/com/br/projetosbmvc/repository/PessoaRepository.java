@@ -1,5 +1,6 @@
 package com.br.projetosbmvc.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,7 +24,10 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 	@Query("select new com.br.projetosbmvc.model.FotoPessoa (f.id, f.nameImage, f.typeImage, f.fotoUser) from FotoPessoa f where f.pessoa.id = ?1")
 	public FotoPessoa findFoto(Long userId);
 	
-	
+	default List<Pessoa> findPaginator (){
+		List <Pessoa> pessoas = new ArrayList<Pessoa>();
+		return pessoas;
+	}
 	
 	
 }

@@ -24,6 +24,12 @@ body{
 }
 
 
+
+.paginator a{
+	padding: 5px 5px 5px 5px;
+}
+
+
 .links:hover{
 	background-color: darkcyan;
 	border-radius: 5px;

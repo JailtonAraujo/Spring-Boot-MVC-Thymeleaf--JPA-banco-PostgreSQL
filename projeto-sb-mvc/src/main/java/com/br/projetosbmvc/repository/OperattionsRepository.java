@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import com.br.projetosbmvc.model.Pessoa;
@@ -18,7 +19,7 @@ public class OperattionsRepository implements Serializable{
 	@Autowired
 	private EntityManager entityManager;
 	
-	public List<Pessoa> findPagination(){
+	public List<Pessoa> findPagination(PageRequest pageRequest){
 		List<Pessoa> pessoas = entityManager.createQuery("select new com.br.projetosbmvc.model.Pessoa (p.id, p.nome, p.sobrenome, p.idade) from Pessoa p")
 				.setMaxResults(6).setFirstResult(0).getResultList();
 		

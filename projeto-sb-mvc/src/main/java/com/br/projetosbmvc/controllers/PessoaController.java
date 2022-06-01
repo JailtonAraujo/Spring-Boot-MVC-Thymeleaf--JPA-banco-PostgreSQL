@@ -7,14 +7,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -29,10 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Pessoa;
-import com.br.projetosbmvc.repository.OperattionsRepository;
 import com.br.projetosbmvc.repository.PessoaRepository;
 import com.br.projetosbmvc.repository.ProfissaoRepository;
-import com.br.projetosbmvc.repository.UsuarioRepository;
 import com.br.projetosbmvc.services.ReportUtil;
 
 @Controller
@@ -45,9 +43,6 @@ public class PessoaController implements Serializable {
 
 	@Autowired
 	private ReportUtil reportUtil;
-	
-	@Autowired
-	private OperattionsRepository operattionsRepository;
 
 	@Autowired
 	private ProfissaoRepository profissaoRepository;
@@ -55,8 +50,9 @@ public class PessoaController implements Serializable {
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView init() {
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
+
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", operattionsRepository.findPagination());
+		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 		return modelAndView;
@@ -81,21 +77,21 @@ public class PessoaController implements Serializable {
 			modelAndView.addObject("msg", msg);
 			return modelAndView;
 		}
-		
+
 		FotoPessoa fotoPessoa = new FotoPessoa();
-		
-		if(fotoPerfil.getSize() > 0) {
+
+		if (fotoPerfil.getSize() > 0) {
 			fotoPessoa.setFotoUser(fotoPerfil.getBytes());
 			fotoPessoa.setNameImage(fotoPerfil.getOriginalFilename());
 			fotoPessoa.setTypeImage(fotoPerfil.getContentType());
 			fotoPessoa.setId(pessoa.getFotoPessoa().getId());
-			
-		}else {
-			if(pessoa.getId() != null && fotoPerfil.getSize() <= 0) {//Caso onde Mantém a mesma foto
+
+		} else {
+			if (pessoa.getId() != null && fotoPerfil.getSize() <= 0) {// Caso onde Mantém a mesma foto
 				fotoPessoa = pessoaRepository.findFoto(pessoa.getId());
 			}
 		}
-		
+
 		pessoa.setFotoPessoa(fotoPessoa);
 		fotoPessoa.setPessoa(pessoa);
 		pessoa.getEndereco().setPessoa(pessoa);
@@ -108,12 +104,12 @@ public class PessoaController implements Serializable {
 		return modelAndView;
 	}
 
-	@GetMapping(value = "/editarpessoa/{idpessoa}")
+	@GetMapping(value = "**/editarpessoa/{idpessoa}")
 	public ModelAndView editar(@PathVariable("idpessoa") String idpessoa) {
 
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		Optional<Pessoa> pessoa = pessoaRepository.findById(Long.parseLong(idpessoa));
-		
+
 		FotoPessoa temp = new FotoPessoa();
 		temp.setId(pessoa.get().getFotoPessoa().getId());
 		if (pessoa.get().getFotoPessoa().getFotoUser() != null) {
@@ -122,9 +118,9 @@ public class PessoaController implements Serializable {
 			temp.setFotoBase64(fotoBase64);
 		}
 		pessoa.get().setFotoPessoa(temp);
-		
+
 		modelAndView.addObject("pessoaobj", pessoa.get());
-		modelAndView.addObject("pessoas", pessoaRepository.findByName("", ""));
+		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 		return modelAndView;
@@ -175,6 +171,17 @@ public class PessoaController implements Serializable {
 
 		response.setHeader(headerKey, headerValue);
 		response.getOutputStream().write(pdf);
+	}
+	
+	@GetMapping("/paginator")
+	public ModelAndView pagination(@PageableDefault(size = 5) Pageable pageable, ModelAndView view) {
+		view.addObject("pessoas", pessoaRepository.findAll(pageable));
+		view.addObject("pessoaobj", new Pessoa());
+		view.addObject("profissoes", profissaoRepository.findAll());
+		
+		view.setViewName("pages/pagepessoa");
+		return view;
+		
 	}
 
 }

@@ -4,10 +4,9 @@
 
 <head th:replace="/fragments/head :: head"></head>
 <head><link rel="stylesheet" href="/css/stylebase.css"></head>
-
-<body>
-
-
+<div th:replace="fragments/preload :: preload"></div>
+<body onload="loading();">
+	
 
   <header th:replace="fragments/header :: header"></header>
   
@@ -163,7 +162,7 @@
       </thead>
 
       <tbody>
-        <tr th:each="pessoa : ${pessoas}">
+        <tr th:each="pessoa : ${pessoas.content}">
           <td th:text="${pessoa.id}"></td>
           <td th:text="${pessoa.nome}"></td>
           <td th:text="${pessoa.sobrenome}"></td>
@@ -175,6 +174,23 @@
       </tbody>
     </table>
   </div>
+  	
+  	<div class="row paginator" style="margin-top:30px;" >
+  		<center>
+  			<span th:if="${pessoas.hasPrevious()}">
+  				<a th:href="@{/paginator(page=${pessoas.number-1}, size=${pessoas.size} )}">Previous</a>
+  			</span>
+  			
+  			<th:block th:each="i : ${#numbers.sequence(0,pessoas.totalPages - 1)}">
+  				<a th:href="@{/paginator(page=${i},size=${pessoas.size})}">[[${i} + 1]]</a>
+  			</th:block>
+  			
+  			<span th:if="${pessoas.hasNext()}">
+  				<a th:href="@{/paginator(page=${pessoas.number+1}, size=${pessoas.size} )}">Next</a>
+  			</span>
+  		</center>
+  	</div>
+  
 </div>
   </div> 
   <script type="text/javascript" src="/js/scriptpessoa.js"></script>
