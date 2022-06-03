@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -66,7 +67,7 @@ public class PessoaController implements Serializable {
 
 			ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 			modelAndView.addObject("pessoaobj", new Pessoa());
-			modelAndView.addObject("pessoas", pessoaRepository.findByName("", ""));
+			modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
 			modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 			List<String> msg = new ArrayList<String>();
@@ -99,7 +100,7 @@ public class PessoaController implements Serializable {
 		pessoaRepository.save(pessoa);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findByName("", ""));
+		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		return modelAndView;
 	}
@@ -139,12 +140,23 @@ public class PessoaController implements Serializable {
 	}
 
 	@PostMapping(value = "**/findbyname")
-	public ModelAndView findByName(@RequestParam(name = "nome") String nome,
-			@RequestParam(name = "sexoPesquisa") String sexoPesquisa) {
+	public ModelAndView findByName(@RequestParam(name = "nomepesquisa") String nomepesquisa,
+			@RequestParam(name = "sexopesquisa") String sexopesquisa, @PageableDefault(size=5, sort = {"nome"}) Pageable pageable ) {
 
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 
-		modelAndView.addObject("pessoas", pessoaRepository.findByName(nome, sexoPesquisa));
+		Page<Pessoa> pessoas = null;
+		
+		if(sexopesquisa != null && !sexopesquisa.isEmpty()) {
+			pessoas = pessoaRepository.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable);
+		}else {
+			pessoas = pessoaRepository.findPessoaByNamePagitanor(nomepesquisa, pageable);
+		}
+		
+		modelAndView.addObject("pessoas", pessoas);
+		
+		modelAndView.addObject("sexopesquisa", sexopesquisa);
+		modelAndView.addObject("nomepesquisa", nomepesquisa);
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
@@ -152,13 +164,13 @@ public class PessoaController implements Serializable {
 	}
 
 	@GetMapping(value = "**/findbyname")
-	public void printPDF(@RequestParam(name = "nome") String nome,
+	public void printPDF(@RequestParam(name = "nomepesquisa") String nomepesquisa,
 			@RequestParam(name = "sexoPesquisa") String sexoPesquisa, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
-		pessoas = pessoaRepository.findByNameReport(nome, sexoPesquisa);
+		pessoas = pessoaRepository.findByNameReport(nomepesquisa, sexoPesquisa);
 
 		byte[] pdf = reportUtil.generatedReport(pessoas, "pessoaReport", request.getServletContext());
 
@@ -174,10 +186,18 @@ public class PessoaController implements Serializable {
 	}
 	
 	@GetMapping("/paginator")
-	public ModelAndView pagination(@PageableDefault(size = 5) Pageable pageable, ModelAndView view) {
-		view.addObject("pessoas", pessoaRepository.findAll(pageable));
+	public ModelAndView pagination(@PageableDefault(size = 5) Pageable pageable, ModelAndView view,
+			@RequestParam(name = "nomepesquisa") String nomepesquisa, @RequestParam("sexopesquisa") String sexopesquisa) {
+		
+		if(sexopesquisa != null && !sexopesquisa.isEmpty()) {
+			view.addObject("pessoas", pessoaRepository.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable));
+		}else {
+			view.addObject("pessoas", pessoaRepository.findPessoaByNamePagitanor(nomepesquisa, pageable));
+		}	
 		view.addObject("pessoaobj", new Pessoa());
 		view.addObject("profissoes", profissaoRepository.findAll());
+		view.addObject("nomepesquisa", nomepesquisa);
+		view.addObject("secopesquisa", sexopesquisa);
 		
 		view.setViewName("pages/pagepessoa");
 		return view;

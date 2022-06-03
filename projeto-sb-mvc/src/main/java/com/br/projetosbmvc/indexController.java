@@ -10,11 +10,4 @@ public class indexController {
 	public String login() {
 		return "login";
 	}
-	
-	/*
-	@RequestMapping("/")
-	public String index() {
-		return "index";
-	}
-	*/
 }

@@ -134,13 +134,13 @@
     <div class="form-grup-search">
       <form action="findbyname" method="post" style="margin-top: 20px;" id="findbyname">
 	      <label>Browser Select</label>
-		  <select class="browser-default" name="sexoPesquisa" >
+		  <select class="browser-default" name="sexopesquisa" th:value="${sexopesquisa}">
 		    <option value="FEMININO">Feminino</option>
 		    <option value="MASCULINO">Masculino</option>
 		    <option value="">Todos</option>
 		  </select>
       
-        <input type="text" name="nome" placeholder="Buscar por nome">
+        <input type="text" name="nomepesquisa" placeholder="Buscar por nome" th:value="${nomepesquisa}">
         
         <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'post';">BUSCAR</button>
         <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'get';">PDF</button>
@@ -162,7 +162,7 @@
       </thead>
 
       <tbody>
-        <tr th:each="pessoa : ${pessoas.content}">
+        <tr th:each="pessoa : ${pessoas}">
           <td th:text="${pessoa.id}"></td>
           <td th:text="${pessoa.nome}"></td>
           <td th:text="${pessoa.sobrenome}"></td>
@@ -178,15 +178,15 @@
   	<div class="row paginator" style="margin-top:30px;" >
   		<center>
   			<span th:if="${pessoas.hasPrevious()}">
-  				<a th:href="@{/paginator(page=${pessoas.number-1}, size=${pessoas.size} )}">Previous</a>
+  				<a th:href="@{/paginator(page=${pessoas.number-1}, size=${pessoas.size}, nomepesquisa=${nomepesquisa}, sexopesquisa=${sexopesquisa} )}">Previous</a>
   			</span>
   			
   			<th:block th:each="i : ${#numbers.sequence(0,pessoas.totalPages - 1)}">
-  				<a th:href="@{/paginator(page=${i},size=${pessoas.size})}">[[${i} + 1]]</a>
+  				<a th:href="@{/paginator(page=${i},size=${pessoas.size}, nomepesquisa=${nomepesquisa}, sexopesquisa=${sexopesquisa})}">[[${i} + 1]]</a>
   			</th:block>
   			
   			<span th:if="${pessoas.hasNext()}">
-  				<a th:href="@{/paginator(page=${pessoas.number+1}, size=${pessoas.size} )}">Next</a>
+  				<a th:href="@{/paginator(page=${pessoas.number+1}, size=${pessoas.size}, nomepesquisa=${nomepesquisa}, sexopesquisa=${sexopesquisa} )}">Next</a>
   			</span>
   		</center>
   	</div>

@@ -1,6 +1,7 @@
 package com.br.projetosbmvc.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.projetosbmvc.model.Usuario;
+import com.br.projetosbmvc.repository.OperattionsRepository;
 import com.br.projetosbmvc.repository.UsuarioRepository;
 
 @Controller
@@ -17,12 +19,16 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private OperattionsRepository operattionsRepository;
 
 	@RequestMapping("/")
 	public ModelAndView init() {
-
+		
 		ModelAndView modelAndView = new ModelAndView("pages/usuario");
-		modelAndView.addObject("usuarios", usuarioRepository.findUsuarioInit());
+		modelAndView.addObject("usuarios", operattionsRepository.findPaginatorUsuario(0));
+		modelAndView.addObject("numberPages", operattionsRepository.countPages("usuario"));
 		modelAndView.addObject("usuarioObj", new Usuario());
 
 		return modelAndView;
@@ -65,6 +71,15 @@ public class UsuarioController {
 		modelAndView.addObject("usuarios", usuarioRepository.findUsuarioInit());
 
 		return modelAndView;
+	}
+	
+	@GetMapping("/paginator")
+	public ModelAndView paginator() {
+		ModelAndView andView = new ModelAndView("pages/usuario");
+		andView.addObject("usuarioObj", new Usuario());
+		andView.addObject("numberPages", operattionsRepository.countPages("usuario"));
+		
+		return andView;
 	}
 
 }
