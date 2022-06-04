@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,10 +30,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.br.projetosbmvc.dto.PessoaDTO;
 import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Pessoa;
 import com.br.projetosbmvc.repository.PessoaRepository;
 import com.br.projetosbmvc.repository.ProfissaoRepository;
+import com.br.projetosbmvc.services.PessoaServices;
 import com.br.projetosbmvc.services.ReportUtil;
 
 @Controller
@@ -44,20 +48,25 @@ public class PessoaController implements Serializable {
 
 	@Autowired
 	private ReportUtil reportUtil;
+	
+	@Autowired
+	private PessoaServices services;
 
 	@Autowired
 	private ProfissaoRepository profissaoRepository;
 
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView init() {
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-
+		
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
+		modelAndView.addObject("pessoas", services.findPaginator());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 		return modelAndView;
 	}
+	
 
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa", consumes = { "multipart/form-data" })
 	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult, final MultipartFile fotoPerfil)
@@ -67,7 +76,7 @@ public class PessoaController implements Serializable {
 
 			ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 			modelAndView.addObject("pessoaobj", new Pessoa());
-			modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
+			modelAndView.addObject("pessoas", services.findPaginator());
 			modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 			List<String> msg = new ArrayList<String>();
@@ -100,7 +109,7 @@ public class PessoaController implements Serializable {
 		pessoaRepository.save(pessoa);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
-		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
+		modelAndView.addObject("pessoas", services.findPaginator());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 		return modelAndView;
 	}
@@ -121,7 +130,7 @@ public class PessoaController implements Serializable {
 		pessoa.get().setFotoPessoa(temp);
 
 		modelAndView.addObject("pessoaobj", pessoa.get());
-		modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5)));
+		modelAndView.addObject("pessoas", services.findPaginator());
 		modelAndView.addObject("profissoes", profissaoRepository.findAll());
 
 		return modelAndView;
@@ -133,7 +142,7 @@ public class PessoaController implements Serializable {
 
 		ModelAndView andView = new ModelAndView("pages/pagepessoa");
 		andView.addObject("pessoaobj", new Pessoa());
-		andView.addObject("pessoas", pessoaRepository.findByName("", ""));
+		andView.addObject("pessoas", services.findPaginator());
 		andView.addObject("profissoes", profissaoRepository.findAll());
 
 		return andView;
@@ -144,16 +153,8 @@ public class PessoaController implements Serializable {
 			@RequestParam(name = "sexopesquisa") String sexopesquisa, @PageableDefault(size=5, sort = {"nome"}) Pageable pageable ) {
 
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
-
-		Page<Pessoa> pessoas = null;
 		
-		if(sexopesquisa != null && !sexopesquisa.isEmpty()) {
-			pessoas = pessoaRepository.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable);
-		}else {
-			pessoas = pessoaRepository.findPessoaByNamePagitanor(nomepesquisa, pageable);
-		}
-		
-		modelAndView.addObject("pessoas", pessoas);
+		modelAndView.addObject("pessoas", services.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable));
 		
 		modelAndView.addObject("sexopesquisa", sexopesquisa);
 		modelAndView.addObject("nomepesquisa", nomepesquisa);
@@ -189,11 +190,9 @@ public class PessoaController implements Serializable {
 	public ModelAndView pagination(@PageableDefault(size = 5) Pageable pageable, ModelAndView view,
 			@RequestParam(name = "nomepesquisa") String nomepesquisa, @RequestParam("sexopesquisa") String sexopesquisa) {
 		
-		if(sexopesquisa != null && !sexopesquisa.isEmpty()) {
-			view.addObject("pessoas", pessoaRepository.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable));
-		}else {
-			view.addObject("pessoas", pessoaRepository.findPessoaByNamePagitanor(nomepesquisa, pageable));
-		}	
+	
+			view.addObject("pessoas", services.findPessoaByNameAndSexoPagitanor(nomepesquisa, sexopesquisa, pageable));
+			
 		view.addObject("pessoaobj", new Pessoa());
 		view.addObject("profissoes", profissaoRepository.findAll());
 		view.addObject("nomepesquisa", nomepesquisa);

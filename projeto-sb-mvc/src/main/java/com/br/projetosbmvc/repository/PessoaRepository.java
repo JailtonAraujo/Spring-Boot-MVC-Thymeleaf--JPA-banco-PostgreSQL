@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.br.projetosbmvc.dto.PessoaDTO;
 import com.br.projetosbmvc.model.FotoPessoa;
 import com.br.projetosbmvc.model.Pessoa;
 
@@ -46,7 +47,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 		Example<Pessoa> example = Example.of(pessoa, exampleMatcher);
 		
 		Page<Pessoa> Pessoas = findAll(example,pageable);
-		
 		return Pessoas;
 		
 	}
