@@ -35,7 +35,7 @@ public class FotoPessoa implements Serializable {
 	private byte[] fotoUser;
 	
 	@Transient
-	private String fotoBase64 = "vazia";
+	private String fotoBase64 = "";
 
 	@JoinColumn(name = "pessoa_id")
 	@ForeignKey(name = "fk_fotopessoa_pessoa")

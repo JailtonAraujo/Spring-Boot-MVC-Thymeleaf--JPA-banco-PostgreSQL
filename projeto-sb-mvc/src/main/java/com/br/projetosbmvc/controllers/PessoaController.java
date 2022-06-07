@@ -88,25 +88,7 @@ public class PessoaController implements Serializable {
 			return modelAndView;
 		}
 
-		FotoPessoa fotoPessoa = new FotoPessoa();
-
-		if (fotoPerfil.getSize() > 0) {
-			fotoPessoa.setFotoUser(fotoPerfil.getBytes());
-			fotoPessoa.setNameImage(fotoPerfil.getOriginalFilename());
-			fotoPessoa.setTypeImage(fotoPerfil.getContentType());
-			fotoPessoa.setId(pessoa.getFotoPessoa().getId());
-
-		} else {
-			if (pessoa.getId() != null && fotoPerfil.getSize() <= 0) {// Caso onde Mantém a mesma foto
-				fotoPessoa = pessoaRepository.findFoto(pessoa.getId());
-			}
-		}
-
-		pessoa.setFotoPessoa(fotoPessoa);
-		fotoPessoa.setPessoa(pessoa);
-		pessoa.getEndereco().setPessoa(pessoa);
-
-		pessoaRepository.save(pessoa);
+		services.salvar(pessoa, fotoPerfil);
 		ModelAndView modelAndView = new ModelAndView("pages/pagepessoa");
 		modelAndView.addObject("pessoaobj", new Pessoa());
 		modelAndView.addObject("pessoas", services.findPaginator());
@@ -124,8 +106,10 @@ public class PessoaController implements Serializable {
 		temp.setId(pessoa.get().getFotoPessoa().getId());
 		if (pessoa.get().getFotoPessoa().getFotoUser() != null) {
 			String fotoBase64 = Base64.getEncoder().encodeToString(pessoa.get().getFotoPessoa().getFotoUser());
-			fotoBase64 = "data:image/" + pessoa.get().getFotoPessoa().getTypeImage() + ";base64," + fotoBase64;
+			fotoBase64 = "data:" + pessoa.get().getFotoPessoa().getTypeImage() + ";base64," + fotoBase64;
 			temp.setFotoBase64(fotoBase64);
+		}else {
+			temp.setFotoBase64(null);
 		}
 		pessoa.get().setFotoPessoa(temp);
 
@@ -166,12 +150,12 @@ public class PessoaController implements Serializable {
 
 	@GetMapping(value = "**/findbyname")
 	public void printPDF(@RequestParam(name = "nomepesquisa") String nomepesquisa,
-			@RequestParam(name = "sexoPesquisa") String sexoPesquisa, HttpServletRequest request,
+			@RequestParam(name = "sexopesquisa") String sexopesquisa, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
-		pessoas = pessoaRepository.findByNameReport(nomepesquisa, sexoPesquisa);
+		pessoas = pessoaRepository.findByNameReport(nomepesquisa, sexopesquisa);
 
 		byte[] pdf = reportUtil.generatedReport(pessoas, "pessoaReport", request.getServletContext());
 
