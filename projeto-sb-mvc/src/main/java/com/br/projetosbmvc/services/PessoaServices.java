@@ -70,8 +70,8 @@ public class PessoaServices implements Serializable{
 					
 					int type = bufferedImage.getType() == 0? bufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
 					
-					int largura = 60;
-					int altura = 60;
+					int largura = 150;
+					int altura = 150;
 					
 					//CRIANDO MINIATURA//
 					BufferedImage resizeImage = new BufferedImage(largura, altura, type);
