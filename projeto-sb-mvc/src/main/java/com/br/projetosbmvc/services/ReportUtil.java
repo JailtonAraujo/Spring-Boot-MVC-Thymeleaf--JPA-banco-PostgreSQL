@@ -1,6 +1,7 @@
 package com.br.projetosbmvc.services;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +29,10 @@ public class ReportUtil implements Serializable{
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listData); 
 		
 		/*Carrega o caminho do arquivo jasper*/
-		String pathJasper = context.getRealPath("reports") + File.separator + nameReport + ".jasper";
+		InputStream stream = this.getClass().getClassLoader().getResourceAsStream("reports/"+nameReport+".jasper");
 		
 		/*Carrega o arquivo jasper passando od dados*/
-		JasperPrint jasperPrint = JasperFillManager.fillReport(pathJasper, new HashedMap(),dataSource);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(stream, new HashedMap(),dataSource);
 		
 		/*Exporta para byte para fazer download do PDF*/
 		return JasperExportManager.exportReportToPdf(jasperPrint);

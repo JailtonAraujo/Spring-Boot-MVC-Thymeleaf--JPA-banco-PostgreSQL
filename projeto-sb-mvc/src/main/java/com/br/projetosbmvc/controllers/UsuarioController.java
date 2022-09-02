@@ -33,7 +33,7 @@ public class UsuarioController {
 	public ModelAndView salvar(Usuario usuario ) {
 		ModelAndView modelAndView = new ModelAndView("pages/usuario");
 		
-		if(!usuarioRepository.alreadExistsByLogin(usuario.getLogin())) {
+		if(usuarioRepository.alreadExistsByLogin(usuario.getLogin()) == 0) {
 			usuarioRepository.save(usuario);
 			modelAndView.addObject("msg", "Salvo com sucesso!");
 		}else {

@@ -32,12 +32,12 @@ public class CadVisitanteController {
 	public ModelAndView cadastrar(Usuario usuario) {
 		ModelAndView modelAndView = new ModelAndView("cadastrovisitante");
 
-		if (!usuarioRepository.alreadExistsByLogin(usuario.getLogin())) {
+		if (usuarioRepository.alreadExistsByLogin(usuario.getLogin()) == 0 ) {
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 			usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
 
 			UsuariosRole usuarioRole = new UsuariosRole();
-			usuarioRole.getRole().setId(3L);
+			usuarioRole.getRole().setId(2L);
 			usuarioRole.setUsuario(usuarioRepository.save(usuario));
 			roleRepository.save(usuarioRole);
 			modelAndView.addObject("msg", "Visitante cadastrado com sucesso!");

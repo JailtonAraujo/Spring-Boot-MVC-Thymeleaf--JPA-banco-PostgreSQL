@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="fragments/head :: head"></head>
 <head><link rel="stylesheet" href="/css/stylebase.css"></head>
 <div th:replace="fragments/preload :: preload"></div>
 <body onload="loading();">
@@ -146,9 +146,10 @@
         <button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('findbyname').method = 'get';">PDF</button>
       </form>
     </div>
-
-    <div class="tbl-persons" sec:authorize="hasRole('ROLE_ADMIN')">
-    <table class="striped responsive-table">
+	
+    <div class="tbl-persons" >
+    <!-- sec:authorize="hasRole('ROLE_ADMIN')" --> 
+    <table class="striped responsive-table" >
       <thead>
         <tr>
           <th scope="col">ID:</th>

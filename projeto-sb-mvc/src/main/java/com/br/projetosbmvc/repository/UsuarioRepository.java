@@ -21,5 +21,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public List<Usuario> findUsuarioInit();
 	
 	@Query(value = "select count(1) > 0 from usuario where login = ?1", nativeQuery = true)
-	public boolean alreadExistsByLogin(String login);
+	public Integer alreadExistsByLogin(String login);
 }

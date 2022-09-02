@@ -46,7 +46,7 @@
 				<staticText>
 					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
 					<textElement>
-						<font isBold="false"/>
+						<font fontName="DejaVu Sans" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Relatorio pessoas]]></text>
 				</staticText>
@@ -56,7 +56,7 @@
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement x="380" y="10" width="144" height="20" forecolor="#FFFFFF" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
 					<textElement textAlignment="Right">
-						<font size="12"/>
+						<font fontName="DejaVu Sans" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
@@ -74,7 +74,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="247d1472-3811-4c2e-af50-6e24d689c584"/>
 				</reportElement>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
@@ -83,7 +83,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="462eed31-293f-47ef-8d61-96be81003c26"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Sobrenome:]]></text>
 			</staticText>
@@ -92,7 +92,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05bb60cb-60be-4045-baef-feed6970b347"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Cidade:]]></text>
 			</staticText>
@@ -101,7 +101,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b4c5a31-5781-4e4a-8467-b233df7099a7"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
@@ -116,6 +116,9 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="247d1472-3811-4c2e-af50-6e24d689c584"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -123,6 +126,9 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="462eed31-293f-47ef-8d61-96be81003c26"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{sobrenome}]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -130,6 +136,9 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="05bb60cb-60be-4045-baef-feed6970b347"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{endereco}.getCidade()]]></textFieldExpression>
 				</textField>
 				<textField>
@@ -137,6 +146,9 @@
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b4c5a31-5781-4e4a-8467-b233df7099a7"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{endereco}.getUf()]]></textFieldExpression>
 				</textField>
 			</frame>
@@ -159,21 +171,21 @@
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="DejaVu Sans" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="DejaVu Sans" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="137d38c7-1a83-4fc5-b156-9d5f1b1a0ddc"/>
 					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
+						<font fontName="DejaVu Sans" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
